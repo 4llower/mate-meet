@@ -11,6 +11,8 @@ import {
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
+import { useForm } from '../../hooks'
+import { object, string } from 'yup'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 40,
     fontWeight: '800',
-    marginTop: 150,
+    marginTop: 90,
     marginBottom: 30,
     textAlign: 'center',
   },
@@ -57,7 +59,17 @@ const styles = StyleSheet.create({
   },
 })
 
+// const getSchema = () =>
+//   object({
+//     login: string().required().email(),
+//     password: string().required(),
+//   }).required()
+
 export const Register = () => {
+  // const { field, submitProps } = useForm({
+  //   validationSchema: getSchema(),
+  //   ini,
+  // })
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

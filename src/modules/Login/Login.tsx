@@ -13,6 +13,8 @@ import {
 
 import { Button } from 'react-native-elements'
 import { APP_NAVIGATION } from '../../enums/navigation'
+import { useForm } from '../../hooks'
+import { object, string } from 'yup'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -68,9 +70,31 @@ const styles = StyleSheet.create({
   },
 })
 
+const initialValues = {
+  login: '',
+  password: '',
+}
+
 export const Login = () => {
   const { navigate } = useNavigation()
+
   const onSignUpPress = () => navigate(APP_NAVIGATION.REGISTER)
+
+  const validationSchema = object().shape({
+    login: string().required(),
+    password: string().required(),
+  })
+
+  const onSubmit = (values) => {
+    console.log(values)
+  }
+
+  const { field, submitProps } = useForm({
+    validationSchema: validationSchema,
+    initialValues: initialValues,
+    onSubmit: onSubmit,
+  })
+
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -81,14 +105,16 @@ export const Login = () => {
               placeholder="Username"
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
+              {...field('login', true)}
             />
             <TextInput
               placeholder="Password"
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
               secureTextEntry={true}
+              {...field('password', true)}
             />
-            <Button buttonStyle={styles.loginButton} title="Login" />
+            <Button buttonStyle={styles.loginButton} title="Login" {...submitProps} />
             <Text style={styles.signUpText}>
               You don't have account?{' '}
               <Text onPress={onSignUpPress} style={styles.signUpLink}>
