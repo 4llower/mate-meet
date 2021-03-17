@@ -10,7 +10,11 @@ export const AppContent = () => {
   return (
     <Providers>
       <Stack.Navigator initialRouteName={APP_NAVIGATION.LOGIN}>
-        <Stack.Screen name={APP_NAVIGATION.LOGIN} component={Login} />
+        <Stack.Screen
+          options={{ title: 'Connect' }}
+          name={APP_NAVIGATION.LOGIN}
+          component={Login}
+        />
         <Stack.Screen name={APP_NAVIGATION.REGISTER} component={Register} />
         <Stack.Screen name={APP_NAVIGATION.EVENTLIST} component={EventList} />
         <Stack.Screen name={APP_NAVIGATION.EVENT} component={Event} />

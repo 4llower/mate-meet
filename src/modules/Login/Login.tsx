@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 
 import {
@@ -11,6 +12,7 @@ import {
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
+import { APP_NAVIGATION } from '../../enums/navigation'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -67,9 +69,8 @@ const styles = StyleSheet.create({
 })
 
 export const Login = () => {
-  const onSignUpPress = () => {
-    console.log(228)
-  }
+  const { navigate } = useNavigation()
+  const onSignUpPress = () => navigate(APP_NAVIGATION.REGISTER)
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
