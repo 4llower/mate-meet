@@ -4,4 +4,5 @@ export enum APP_NAVIGATION {
   EVENTLIST = 'EventList',
   REGISTER = 'Register',
   PROFILE = 'Profile',
+  EVENT = 'Event',
 }
