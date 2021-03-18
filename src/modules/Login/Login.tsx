@@ -85,7 +85,7 @@ export const Login = () => {
     password: string().required(),
   })
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     console.log(values)
   }
 

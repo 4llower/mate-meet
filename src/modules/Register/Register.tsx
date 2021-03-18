@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Keyboard,
@@ -8,11 +8,14 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
+  Alert,
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
+import * as DocumentPicker from 'expo-document-picker'
+import { showAvatarName } from './helpers'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -57,19 +60,57 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'transparent',
   },
+  upload: {
+    flex: 0.5,
+    marginLeft: 15,
+    marginRight: 15,
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  uploadFileName: {
+    marginLeft: 15,
+  },
 })
 
-// const getSchema = () =>
-//   object({
-//     login: string().required().email(),
-//     password: string().required(),
-//   }).required()
+const initialValues = {
+  login: '',
+  email: '',
+  description: '',
+  password: '',
+}
 
 export const Register = () => {
-  // const { field, submitProps } = useForm({
-  //   validationSchema: getSchema(),
-  //   ini,
-  // })
+  const validationSchema = object().shape({
+    login: string().required(),
+    password: string().required(),
+    email: string().email(),
+    description: string(),
+  })
+
+  const [avatar, setAvatar] = useState<(DocumentPicker.DocumentResult & { name?: string }) | null>(
+    null,
+  )
+
+  const [repeatedPassword, setRepeatedPassword] = useState<string>('')
+
+  const onSubmit = async (values) => {
+    if (values.password != repeatedPassword) {
+      Alert.alert("Passwords don't match")
+      return
+    }
+    console.log({ ...values, avatar })
+  }
+
+  const { field, submitProps } = useForm({
+    validationSchema,
+    initialValues,
+    onSubmit: onSubmit,
+  })
+
+  const onFileUpload = async () =>
+    setAvatar(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
+
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -80,30 +121,40 @@ export const Register = () => {
               placeholder="Username*"
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
+              {...field('login')}
             />
             <TextInput
               placeholder="Email*"
+              {...field('email')}
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
             />
             <TextInput
               placeholder="Description"
               placeholderTextColor="#c4c3cb"
+              {...field('description')}
               style={styles.loginFormTextInput}
             />
             <TextInput
               placeholder="Password*"
               placeholderTextColor="#c4c3cb"
+              {...field('password')}
               style={styles.loginFormTextInput}
               secureTextEntry={true}
             />
             <TextInput
               placeholder="Repeat password*"
               placeholderTextColor="#c4c3cb"
+              value={repeatedPassword}
+              onChangeText={(value) => setRepeatedPassword(value)}
               style={styles.loginFormTextInput}
               secureTextEntry={true}
             />
-            <Button buttonStyle={styles.loginButton} title="Register" />
+            <View style={styles.upload}>
+              <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />
+              <Text style={styles.uploadFileName}>{showAvatarName(avatar?.name)}</Text>
+            </View>
+            <Button buttonStyle={styles.loginButton} title="Register" {...submitProps} />
           </View>
         </View>
       </TouchableWithoutFeedback>

@@ -45,7 +45,7 @@ export const useForm = <T extends FormikValues>({
     () => ({
       onPress: formik.handleSubmit,
       loading: formik.isSubmitting,
-      disabled: formik.isSubmitting || (validateForm && !formik.dirty),
+      // disabled: formik.isSubmitting || (validateForm && !formik.dirty),
     }),
     [formik.dirty, formik.handleSubmit, formik.isSubmitting, validateForm],
   )
