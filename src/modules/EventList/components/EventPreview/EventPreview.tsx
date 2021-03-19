@@ -1,6 +1,6 @@
 import React from 'react'
 import { EventProps } from '../../../../types'
-import { View, Image, StyleSheet, Text } from 'react-native'
+import { View, Image, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { cutIfMaximumLengthExceeded, generateTagsView } from './helpers'
 import moment from 'moment'
@@ -59,28 +59,32 @@ const styles = StyleSheet.create({
   },
 })
 
-export const EventPreview: React.FC<EventProps> = ({
+interface Props extends EventProps {
+  onPress: () => void
+}
+
+export const EventPreview: React.FC<Props> = ({
   name,
   description,
   photo,
-  createdBy,
   date,
   eventUsers,
-  status,
   tags,
-  rate,
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
-      {!photo && <Ionicons name="image" size={90} />}
-      {photo && <Image source={{ uri: photo }} style={styles.previewImage} />}
-      <View style={styles.description}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
-        <Text style={styles.link}>{generateTagsView(tags)}</Text>
+    <TouchableNativeFeedback onPress={onPress}>
+      <View style={styles.container}>
+        {!photo && <Ionicons name="image" size={90} />}
+        {photo && <Image source={{ uri: photo }} style={styles.previewImage} />}
+        <View style={styles.description}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
+          <Text style={styles.link}>{generateTagsView(tags)}</Text>
+        </View>
+        <Text style={styles.date}>{moment(date).format('MMM Do, h:mm a')}</Text>
+        <Participants numberParticipants={eventUsers.length} />
       </View>
-      <Text style={styles.date}>{moment(date).format('MMM Do, h:mm a')}</Text>
-      <Participants numberParticipants={eventUsers.length} />
-    </View>
+    </TouchableNativeFeedback>
   )
 }
