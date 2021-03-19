@@ -2,6 +2,8 @@ import React from 'react'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { EventProps } from '../../types'
 import { EventPreview } from './components'
+import { useNavigation } from '@react-navigation/native'
+import { APP_NAVIGATION } from '../../enums/navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -79,9 +81,21 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
   ]
+
+  const { navigate } = useNavigation()
+
+  const onEventPress = (props: EventProps) => {
+    navigate(APP_NAVIGATION.EVENT, props)
+  }
+
   return (
     <View style={styles.container}>
-      <FlatList data={data} renderItem={({ item }) => <EventPreview {...item} key={item.name} />} />
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <EventPreview {...item} key={item.name} onPress={() => onEventPress(item)} />
+        )}
+      />
     </View>
   )
 }

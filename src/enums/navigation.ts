@@ -1,5 +1,4 @@
 export enum APP_NAVIGATION {
-  HOME = 'Home',
   LOGIN = 'Login',
   EVENT_LIST = 'EventList',
   REGISTER = 'Register',

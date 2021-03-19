@@ -2,7 +2,7 @@ import React from 'react'
 import { Providers } from './providers'
 import { createStackNavigator } from '@react-navigation/stack'
 import { APP_NAVIGATION } from './enums/navigation'
-import { Login, Register, EventList, Profile, CreateEvent } from './modules'
+import { Login, Register, EventList, Profile, CreateEvent, Event } from './modules'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useFonts } from 'expo-font'
@@ -78,6 +78,11 @@ export const AppContent = () => {
         <Stack.Screen
           name={APP_NAVIGATION.MAIN_SCREEN}
           component={MainScreen}
+          options={{ title: 'Mate Meet' }}
+        />
+        <Stack.Screen
+          name={APP_NAVIGATION.EVENT}
+          component={Event}
           options={{ title: 'Mate Meet' }}
         />
       </Stack.Navigator>
