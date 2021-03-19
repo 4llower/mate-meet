@@ -88,7 +88,7 @@ export const Login = () => {
   const onSubmit = async (values: any) => {
     console.log(values)
     // TO DO: Api integration
-    reset({ index: 0, routes: [{ name: APP_NAVIGATION.EVENTLIST }] }) // if login was success
+    reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] }) // if login was success
   }
 
   const { field, submitProps } = useForm({

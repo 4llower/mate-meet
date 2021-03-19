@@ -105,7 +105,7 @@ export const Register = () => {
     }
     // TO DO: Api integration
     console.log({ ...values, avatar })
-    reset({ index: 0, routes: [{ name: APP_NAVIGATION.EVENTLIST }] }) // if login was success
+    reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] }) // if register was success
   }
 
   const { field, submitProps } = useForm({
