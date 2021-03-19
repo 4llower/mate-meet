@@ -18,7 +18,8 @@ export const EventList: React.FC = () => {
     {
       date: '2022-11-22',
       createdBy: '4llower',
-      description: 'Hi there, this is test event',
+      description:
+        'Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi Hi there, this is test event  Hi there, this is test event  Hi there, this is test event  ',
       name: 'MMA Botaem',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',

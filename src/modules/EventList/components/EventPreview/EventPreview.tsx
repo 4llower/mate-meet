@@ -2,9 +2,10 @@ import React from 'react'
 import { EventProps } from '../../../../types'
 import { View, Image, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { cutIfMaximumLengthExceeded, generateTagsView } from './helpers'
+import { cutIfMaximumLengthExceeded } from './helpers'
 import moment from 'moment'
 import { Participants } from './components'
+import { generateTagsView } from '../../../../helpers'
 
 const styles = StyleSheet.create({
   container: {
