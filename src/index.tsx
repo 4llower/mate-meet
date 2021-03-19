@@ -52,10 +52,13 @@ export const MainScreen = () => {
 }
 
 export const AppContent = () => {
-  const [] = useFonts({
+  const [loaded] = useFonts({
     Montserrat: require('./fonts/Montserrat-Regular.ttf'),
     MontserratBold: require('./fonts/Montserrat-Bold.ttf'),
   })
+
+  if (!loaded) return null
+
   return (
     <Providers>
       <Stack.Navigator

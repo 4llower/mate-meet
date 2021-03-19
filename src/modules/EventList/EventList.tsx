@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 export const EventList: React.FC = () => {
   const data: EventProps[] = [
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',
@@ -25,7 +25,7 @@ export const EventList: React.FC = () => {
         'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there   , this is test event',
       name: 'MMA Botaem',
@@ -34,7 +34,7 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',
@@ -43,7 +43,7 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',
@@ -52,7 +52,7 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',
@@ -61,7 +61,7 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',
@@ -70,7 +70,7 @@ export const EventList: React.FC = () => {
       tags: ['mma', 'try hard'],
     },
     {
-      date: '22-11-2022',
+      date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
       name: 'MMA Botaem',

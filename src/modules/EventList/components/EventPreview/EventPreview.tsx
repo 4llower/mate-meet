@@ -3,6 +3,8 @@ import { EventProps } from '../../../../types'
 import { View, Image, StyleSheet, Text } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { cutIfMaximumLengthExceeded, generateTagsView } from './helpers'
+import moment from 'moment'
+import { Participants } from './components'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,21 +25,37 @@ const styles = StyleSheet.create({
     height: 65,
     width: 79,
     marginLeft: 6,
-    borderRadius: 6,
+    borderRadius: 10,
   },
   description: {
     marginLeft: 15,
   },
   name: {
     fontFamily: 'MontserratBold',
+    marginBottom: 3,
   },
   field: {
     fontFamily: 'Montserrat',
   },
   link: {
     color: '#0645AD',
-    marginRight: 2,
+    marginTop: 5,
     fontFamily: 'Montserrat',
+  },
+  date: {
+    position: 'absolute',
+    right: 10,
+    fontSize: 12,
+    fontFamily: 'Montserrat',
+    bottom: 7,
+    opacity: 0.5,
+  },
+  users: {
+    position: 'absolute',
+    fontSize: 12,
+    bottom: 7,
+    fontFamily: 'Montserrat',
+    left: 22,
   },
 })
 
@@ -61,6 +79,8 @@ export const EventPreview: React.FC<EventProps> = ({
         <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
         <Text style={styles.link}>{generateTagsView(tags)}</Text>
       </View>
+      <Text style={styles.date}>{moment(date).format('MMM Do, h:mm a')}</Text>
+      <Participants numberParticipants={eventUsers.length} />
     </View>
   )
 }
