@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   containerView: {
     flex: 1,
     backgroundColor: 'white',
+    fontFamily: 'Montserrat',
   },
   loginScreenContainer: {
     flex: 1,
@@ -30,15 +31,18 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 40,
     fontWeight: '800',
+    fontFamily: 'Montserrat',
     marginTop: 90,
     marginBottom: 30,
     textAlign: 'center',
   },
   loginFormView: {
     flex: 1,
+    fontFamily: 'Montserrat',
   },
   loginFormTextInput: {
     height: 43,
+    fontFamily: 'Montserrat',
     fontSize: 14,
     borderRadius: 5,
     borderWidth: 1,
@@ -54,12 +58,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#3897f1',
     borderRadius: 5,
     height: 45,
+    fontFamily: 'Montserrat',
     marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
   },
   fbLoginButton: {
     height: 45,
+    fontFamily: 'Montserrat',
     marginTop: 10,
     backgroundColor: 'transparent',
   },
@@ -73,6 +79,7 @@ const styles = StyleSheet.create({
   },
   uploadFileName: {
     marginLeft: 15,
+    fontFamily: 'Montserrat',
   },
 })
 

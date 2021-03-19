@@ -5,6 +5,7 @@ import { APP_NAVIGATION } from './enums/navigation'
 import { Login, Register, EventList, Profile, CreateEvent } from './modules'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useFonts } from 'expo-font'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -51,6 +52,10 @@ export const MainScreen = () => {
 }
 
 export const AppContent = () => {
+  const [] = useFonts({
+    Montserrat: require('./fonts/Montserrat-Regular.ttf'),
+    MontserratBold: require('./fonts/Montserrat-Bold.ttf'),
+  })
   return (
     <Providers>
       <Stack.Navigator

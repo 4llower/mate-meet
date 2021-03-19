@@ -2,6 +2,7 @@ import React from 'react'
 import { EventProps } from '../../../../types'
 import { View, Image, StyleSheet, Text } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { cutIfMaximumLengthExceeded, generateTagsView } from './helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,17 @@ const styles = StyleSheet.create({
   description: {
     marginLeft: 15,
   },
+  name: {
+    fontFamily: 'MontserratBold',
+  },
+  field: {
+    fontFamily: 'Montserrat',
+  },
+  link: {
+    color: '#0645AD',
+    marginRight: 2,
+    fontFamily: 'Montserrat',
+  },
 })
 
 export const EventPreview: React.FC<EventProps> = ({
@@ -45,9 +57,9 @@ export const EventPreview: React.FC<EventProps> = ({
       {!photo && <Ionicons name="image" size={90} />}
       {photo && <Image source={{ uri: photo }} style={styles.previewImage} />}
       <View style={styles.description}>
-        <Text>{name}</Text>
-        <Text>{description}</Text>
-        <Text>{tags}</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
+        <Text style={styles.link}>{generateTagsView(tags)}</Text>
       </View>
     </View>
   )

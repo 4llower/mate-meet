@@ -29,15 +29,18 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginTop: 150,
     marginBottom: 30,
+    fontFamily: 'Montserrat',
     textAlign: 'center',
   },
   loginFormView: {
     flex: 1,
+    fontFamily: 'Montserrat',
   },
   loginFormTextInput: {
     height: 43,
     fontSize: 14,
     borderRadius: 5,
+    fontFamily: 'Montserrat',
     borderWidth: 1,
     borderColor: '#eaeaea',
     backgroundColor: '#fafafa',
@@ -48,6 +51,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   loginButton: {
+    fontFamily: 'Montserrat',
     backgroundColor: '#3897f1',
     borderRadius: 5,
     height: 45,
@@ -58,15 +62,18 @@ const styles = StyleSheet.create({
   fbLoginButton: {
     height: 45,
     marginTop: 10,
+    fontFamily: 'Montserrat',
     backgroundColor: 'transparent',
   },
   signUpText: {
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 30,
     marginRight: 15,
     marginTop: 15,
+    fontFamily: 'Montserrat',
   },
   signUpLink: {
+    fontFamily: 'Montserrat',
     color: 'blue',
   },
 })
