@@ -76,7 +76,7 @@ const initialValues = {
 }
 
 export const Login = () => {
-  const { navigate } = useNavigation()
+  const { navigate, reset } = useNavigation()
 
   const onSignUpPress = () => navigate(APP_NAVIGATION.REGISTER)
 
@@ -85,8 +85,10 @@ export const Login = () => {
     password: string().required(),
   })
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     console.log(values)
+    // TO DO: Api integration
+    reset({ index: 0, routes: [{ name: APP_NAVIGATION.EVENTLIST }] }) // if login was success
   }
 
   const { field, submitProps } = useForm({

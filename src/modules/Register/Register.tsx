@@ -16,6 +16,8 @@ import { useForm } from '../../hooks'
 import { object, string } from 'yup'
 import * as DocumentPicker from 'expo-document-picker'
 import { showAvatarName } from './helpers'
+import { APP_NAVIGATION } from '../../enums/navigation'
+import { useNavigation } from '@react-navigation/native'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -88,18 +90,22 @@ export const Register = () => {
     description: string(),
   })
 
+  const { reset } = useNavigation()
+
   const [avatar, setAvatar] = useState<(DocumentPicker.DocumentResult & { name?: string }) | null>(
     null,
   )
 
   const [repeatedPassword, setRepeatedPassword] = useState<string>('')
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     if (values.password != repeatedPassword) {
       Alert.alert("Passwords don't match")
       return
     }
+    // TO DO: Api integration
     console.log({ ...values, avatar })
+    reset({ index: 0, routes: [{ name: APP_NAVIGATION.EVENTLIST }] }) // if login was success
   }
 
   const { field, submitProps } = useForm({
