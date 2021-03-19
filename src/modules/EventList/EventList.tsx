@@ -21,6 +21,8 @@ export const EventList: React.FC = () => {
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
+      photo:
+        'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
     },
     {
       date: '22-11-2022',

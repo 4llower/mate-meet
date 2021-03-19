@@ -1,7 +1,7 @@
 import React from 'react'
 import { EventProps } from '../../../../types'
 import { View, Image, StyleSheet, Text } from 'react-native'
-import { images } from './images'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,10 +15,17 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   previewImage: {
-    height: 10,
-    width: 10,
+    height: 65,
+    width: 79,
+    marginLeft: 6,
+    borderRadius: 6,
+  },
+  description: {
+    marginLeft: 15,
   },
 })
 
@@ -35,8 +42,13 @@ export const EventPreview: React.FC<EventProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: photo ?? images.defaultImage }} style={styles.previewImage} />
-      <Text>{name}</Text>
+      {!photo && <Ionicons name="image" size={90} />}
+      {photo && <Image source={{ uri: photo }} style={styles.previewImage} />}
+      <View style={styles.description}>
+        <Text>{name}</Text>
+        <Text>{description}</Text>
+        <Text>{tags}</Text>
+      </View>
     </View>
   )
 }
