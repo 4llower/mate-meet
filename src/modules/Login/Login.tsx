@@ -19,6 +19,7 @@ import { object, string } from 'yup'
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
+    backgroundColor: 'white',
   },
   loginScreenContainer: {
     flex: 1,

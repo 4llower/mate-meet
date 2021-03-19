@@ -2,10 +2,9 @@ import React from 'react'
 import { Providers } from './providers'
 import { createStackNavigator } from '@react-navigation/stack'
 import { APP_NAVIGATION } from './enums/navigation'
-import { Login, Register, EventList, Profile } from './modules'
+import { Login, Register, EventList, Profile, CreateEvent } from './modules'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { CreateEvent } from './modules/CreateEvent'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -54,14 +53,25 @@ export const MainScreen = () => {
 export const AppContent = () => {
   return (
     <Providers>
-      <Stack.Navigator initialRouteName={APP_NAVIGATION.LOGIN}>
+      <Stack.Navigator
+        initialRouteName={APP_NAVIGATION.LOGIN}
+        screenOptions={{ headerTitleAlign: 'center' }}
+      >
         <Stack.Screen
-          options={{ title: 'Connect' }}
+          options={{ title: 'Sign in' }}
           name={APP_NAVIGATION.LOGIN}
           component={Login}
         />
-        <Stack.Screen name={APP_NAVIGATION.REGISTER} component={Register} />
-        <Stack.Screen name={APP_NAVIGATION.MAIN_SCREEN} component={MainScreen} />
+        <Stack.Screen
+          name={APP_NAVIGATION.REGISTER}
+          component={Register}
+          options={{ title: 'Sign up' }}
+        />
+        <Stack.Screen
+          name={APP_NAVIGATION.MAIN_SCREEN}
+          component={MainScreen}
+          options={{ title: 'Mate Meet' }}
+        />
       </Stack.Navigator>
     </Providers>
   )
