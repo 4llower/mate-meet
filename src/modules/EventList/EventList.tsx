@@ -31,7 +31,7 @@ export const EventList: React.FC = () => {
       date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there   , this is test event',
-      name: 'MMA Botaem',
+      name: 'MMA Botaem1',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
@@ -40,7 +40,7 @@ export const EventList: React.FC = () => {
       date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
-      name: 'MMA Botaem',
+      name: 'MMA Botaem2',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
@@ -49,7 +49,7 @@ export const EventList: React.FC = () => {
       date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
-      name: 'MMA Botaem',
+      name: 'MMA Botaem3',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
@@ -58,7 +58,16 @@ export const EventList: React.FC = () => {
       date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
-      name: 'MMA Botaem',
+      name: 'MMA Botaem4',
+      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
+      status: 'notStarted',
+      tags: ['mma', 'try hard'],
+    },
+    {
+      date: '2022-11-22',
+      createdBy: '4llower5',
+      description: 'Hi there, this is test event',
+      name: 'MMA Botaem5',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
@@ -67,16 +76,7 @@ export const EventList: React.FC = () => {
       date: '2022-11-22',
       createdBy: '4llower',
       description: 'Hi there, this is test event',
-      name: 'MMA Botaem',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem',
+      name: 'MMA Botaem6',
       eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
       status: 'notStarted',
       tags: ['mma', 'try hard'],
@@ -96,6 +96,7 @@ export const EventList: React.FC = () => {
         renderItem={({ item }) => (
           <EventPreview {...item} key={item.name} onPress={() => onEventPress(item)} />
         )}
+        keyExtractor={(item) => item.name}
       />
     </View>
   )
