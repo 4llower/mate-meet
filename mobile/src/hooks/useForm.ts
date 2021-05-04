@@ -43,7 +43,7 @@ export const useForm = <T extends FormikValues>({
 
   const submitProps = useMemo(
     () => ({
-      onPress: formik.handleSubmit,
+      onPress: () => formik.handleSubmit(),
       loading: formik.isSubmitting,
       // disabled: formik.isSubmitting || (validateForm && !formik.dirty),
     }),
