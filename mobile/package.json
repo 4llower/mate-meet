@@ -8,9 +8,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.4.7",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
+    "add": "^2.0.6",
     "axios": "^0.21.1",
     "expo": "~40.0.0",
     "expo-document-picker": "~8.4.1",
@@ -26,13 +28,16 @@
     "react-native-elements": "^3.3.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-screens": "^2.18.1",
+    "react-native-tag-input": "^0.0.21",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
+    "yarn": "^1.22.10",
     "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@types/humps": "^2.0.0",
+    "@types/moment": "^2.13.0",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",

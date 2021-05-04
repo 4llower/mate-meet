@@ -15,9 +15,9 @@ import { Button } from 'react-native-elements'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
 import * as DocumentPicker from 'expo-document-picker'
-import { showAvatarName } from './helpers'
 import { APP_NAVIGATION } from '../../enums/navigation'
 import { useNavigation } from '@react-navigation/native'
+import { showFileName } from '../../helpers'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -166,7 +166,7 @@ export const Register = () => {
             />
             <View style={styles.upload}>
               <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />
-              <Text style={styles.uploadFileName}>{showAvatarName(avatar?.name)}</Text>
+              <Text style={styles.uploadFileName}>{showFileName(avatar?.name)}</Text>
             </View>
             <Button buttonStyle={styles.loginButton} title="Register" {...submitProps} />
           </View>

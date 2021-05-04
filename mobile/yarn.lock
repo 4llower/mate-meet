@@ -1704,6 +1704,13 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-community/datetimepicker@^3.4.7":
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-3.4.7.tgz#84613cda2cf06315530628cdf07c77076eae5ec3"
+  integrity sha512-T5MG05ekf9iLSdpBPDbXcOUP6c9pNVhCEVCp9jfjQxj+4dpVQMiCSyLJdPM543uv9KloIZZ71vs+Um01AbwO7A==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-navigation/bottom-tabs@^5.11.8":
   version "5.11.8"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.8.tgz#0af8d5859b1ad781bdd86e8236ceaed60dc355fe"
@@ -1798,6 +1805,13 @@
   version "4.14.168"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
+
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  integrity sha1-YE69GJvDvDShVIaJQE5hoqSqyJY=
+  dependencies:
+    moment "*"
 
 "@types/node@*":
   version "14.14.25"
@@ -2000,6 +2014,11 @@ acorn@^7.4.0:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
 
 ajv@^6.10.0, ajv@^6.12.4:
   version "6.12.6"
@@ -5301,7 +5320,7 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.29.1:
+moment@*, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -5906,7 +5925,7 @@ promise@^8.0.3:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6060,6 +6079,14 @@ react-native-size-matters@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
   integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
+
+react-native-tag-input@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/react-native-tag-input/-/react-native-tag-input-0.0.21.tgz#07e361c58ce063b04670bd7ead6773464de98129"
+  integrity sha512-xvkkNdIG9tdbNB99J1jg7iGfgWTEUZkx2QfrDBjQpIwCwNrnGQpbkWixgOpV+OgMkP2VMYztYar4uNjXL/GQPA==
+  dependencies:
+    invariant "^2.2.2"
+    prop-types "^15.5.10"
 
 react-native-vector-icons@^8.1.0:
   version "8.1.0"
@@ -7557,6 +7584,11 @@ yargs@^16.1.1:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+yarn@^1.22.10:
+  version "1.22.10"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.10.tgz#c99daa06257c80f8fa2c3f1490724e394c26b18c"
+  integrity sha512-IanQGI9RRPAN87VGTF7zs2uxkSyQSrSPsju0COgbsKQOOXr5LtcVPeyXWgwVa0ywG3d8dg6kSYKGBuYK021qeA==
 
 yocto-queue@^0.1.0:
   version "0.1.0"
