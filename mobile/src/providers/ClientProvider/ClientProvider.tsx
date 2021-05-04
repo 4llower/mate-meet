@@ -13,6 +13,7 @@ export const useClient = () => {
 
 export const ClientProvider: React.FC = ({ children }) => {
   const { token } = useToken()
+
   return (
     <ClientContext.Provider value={{ ...privateClient(token), ...publicClient() }}>
       {children}
