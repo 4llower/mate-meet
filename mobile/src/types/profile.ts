@@ -1,7 +1,7 @@
 export interface Profile {
   firstName: string
   lastName: string
-  phone: string
+  phoneNumber: string
   avatar?: string
   description: string
 }

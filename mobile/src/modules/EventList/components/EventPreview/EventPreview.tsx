@@ -6,6 +6,7 @@ import { cutIfMaximumLengthExceeded } from './helpers'
 import moment from 'moment'
 import { Participants } from './components'
 import { generateTagsView } from '../../../../helpers'
+import { config } from '../../../../config'
 
 const styles = StyleSheet.create({
   container: {
@@ -76,7 +77,7 @@ export const EventPreview: React.FC<Props> = ({
     <TouchableNativeFeedback onPress={onPress}>
       <View style={styles.container}>
         {!photo && <Ionicons name="image" size={90} />}
-        {photo && <Image source={{ uri: photo }} style={styles.previewImage} />}
+        {photo && <Image source={{ uri: config.media + photo }} style={styles.previewImage} />}
         <View style={styles.description}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>

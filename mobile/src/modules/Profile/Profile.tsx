@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, TextInput, ActivityIndicator, Image } from 'react-native'
+import { StyleSheet, View, TextInput, ActivityIndicator, Image, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Profile as IProfile } from '../../types/profile'
 import { useClient, useToken } from '../../providers'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
+import { config } from '../../config'
 
 const styles = StyleSheet.create({
   loaderContainer: {
@@ -70,14 +71,6 @@ const validationSchema = object().shape({
 export const Profile: React.FC = ({}) => {
   const [profile, setProfile] = useState<null | IProfile>(null)
   const client = useClient()
-  const onSubmit = async (values: any) => console.log(values)
-
-  const { field, submitProps, formik } = useForm({
-    initialValues: {} as IProfile,
-    validationSchema,
-    onSubmit,
-  })
-
   const { token } = useToken()
 
   useEffect(() => {
@@ -88,6 +81,21 @@ export const Profile: React.FC = ({}) => {
       setProfile(response)
     })
   }, [client, token])
+
+  const onSubmit = async (values: any) => {
+    try {
+      await client.updateProfile(values, token)
+      Alert.prompt('You information was successfully updated.')
+    } catch (e) {
+      Alert.alert('Something went wrong:(')
+    }
+  }
+
+  const { field, submitProps, formik } = useForm({
+    initialValues: {} as IProfile,
+    validationSchema,
+    onSubmit,
+  })
 
   if (!profile) {
     return (
@@ -100,13 +108,15 @@ export const Profile: React.FC = ({}) => {
   return (
     <View style={styles.container}>
       <View style={styles.profilePhotoContainer}>
-        {profile.avatar && <Image source={{ uri: profile.avatar }} style={styles.profilePhoto} />}
+        {profile.avatar && (
+          <Image source={{ uri: config.media + profile.avatar }} style={styles.profilePhoto} />
+        )}
         {!profile.avatar && <Ionicons name="happy" size={200} />}
       </View>
       <View style={styles.container}>
         <TextInput style={styles.input} {...field('firstName')} />
         <TextInput style={styles.input} {...field('lastName')} />
-        <TextInput style={styles.input} {...field('phone')} />
+        <TextInput style={styles.input} {...field('phoneNumber')} />
         <TextInput style={styles.input} {...field('description')} />
         <Button buttonStyle={styles.button} title="Save" {...submitProps} />
       </View>

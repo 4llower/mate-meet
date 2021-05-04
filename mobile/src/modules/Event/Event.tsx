@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Button } from 'react-native-elements'
 import { generateTagsView } from '../../helpers'
 import moment from 'moment'
+import { config } from '../../config'
 
 const styles = StyleSheet.create({
   container: {
@@ -57,7 +58,7 @@ export const Event: React.FC<any> = ({ ...props }) => {
             <Ionicons name="image" size={200} />
           </View>
         )}
-        {photo && <Image source={{ uri: photo }} style={styles.image} />}
+        {photo && <Image source={{ uri: config.media + photo }} style={styles.image} />}
         <Text style={styles.name}>{name}</Text>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Description:'}</Text>
