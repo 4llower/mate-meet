@@ -8,7 +8,7 @@ interface Actions {
   setToken: (value: string) => void
 }
 
-const TokenContext = React.createContext<Values & Actions>({ token: null, setToken: console.log })
+const TokenContext = React.createContext<Values & Actions>({} as Values & Actions)
 
 export const useToken = () => {
   const context = useContext(TokenContext)
