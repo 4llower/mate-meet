@@ -18,6 +18,7 @@ import * as DocumentPicker from 'expo-document-picker'
 import { APP_NAVIGATION } from '../../enums/navigation'
 import { useNavigation } from '@react-navigation/native'
 import { showFileName } from '../../helpers'
+import { useClient, useToken } from '../../providers'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -105,15 +106,23 @@ export const Register = () => {
   )
 
   const [repeatedPassword, setRepeatedPassword] = useState<string>('')
+  const client = useClient()
+  const { setToken } = useToken()
 
   const onSubmit = async (values: any) => {
     if (values.password != repeatedPassword) {
       Alert.alert("Passwords don't match")
       return
     }
-    // TO DO: Api integration
-    console.log({ ...values, avatar })
-    reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] }) // if register was success
+    const { ok } = await client.register({ login: values.login, password: values.password })
+    if (ok) {
+      const data = await client.auth({ login: values.login, password: values.password })
+      if (data.ok) {
+        setToken(data.access)
+        void (await client.createProfile(values, data.access))
+        reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
+      } else Alert.alert('Something went wrong')
+    } else Alert.alert('Something went wrong')
   }
 
   const { field, submitProps } = useForm({

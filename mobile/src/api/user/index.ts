@@ -16,6 +16,6 @@ export const PublicUserApi = (client: AxiosInstance): PublicUser => {
 export const PrivateUserApi = (client: AxiosInstance, token: string): PrivateUser => {
   return {
     ...passwordInitializer(client, token),
-    ...profileInitializer(client, token),
+    ...profileInitializer(client),
   }
 }

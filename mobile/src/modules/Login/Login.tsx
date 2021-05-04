@@ -101,7 +101,7 @@ export const Login = () => {
   const onSubmit = async (values: any) => {
     const data = await client.auth(values)
     if (data.ok) {
-      setToken(data.refresh)
+      setToken(data.access)
       reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } else {
       Alert.alert('Error', 'Invalid Credentials')

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { EventProps } from '../../types'
 import { EventPreview } from './components'
 import { useNavigation } from '@react-navigation/native'
 import { APP_NAVIGATION } from '../../enums/navigation'
+import { useClient, useToken } from '../../providers'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,74 +15,14 @@ const styles = StyleSheet.create({
 })
 
 export const EventList: React.FC = () => {
-  const data: EventProps[] = [
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description:
-        'Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi Hi there, this is test event Hi there, this is test event  Hi there, this is test event  Hi Hi there, this is test event  Hi there, this is test event  Hi there, this is test event  ',
-      name: 'MMA Botaem',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['try hard'],
-      photo:
-        'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there   , this is test event',
-      name: 'MMA Botaem1',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem2',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem3',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem4',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower5',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem5',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-    {
-      date: '2022-11-22',
-      createdBy: '4llower',
-      description: 'Hi there, this is test event',
-      name: 'MMA Botaem6',
-      eventUsers: ['4llower', 'max', 'tsudd', 'slavik175cm'],
-      status: 'notStarted',
-      tags: ['mma', 'try hard'],
-    },
-  ]
+  const [data, setData] = useState<EventProps[]>([])
+  const { token } = useToken()
+  const client = useClient()
+
+  useEffect(() => {
+    if (token === '') return
+    client.getAllEvents(token).then((response) => setData(response))
+  }, [])
 
   const { navigate } = useNavigation()
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, TextInput, ActivityIndicator, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Profile as IProfile } from '../../types/profile'
-import { useClient } from '../../providers'
+import { useClient, useToken } from '../../providers'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
@@ -78,12 +78,15 @@ export const Profile: React.FC = ({}) => {
     onSubmit,
   })
 
+  const { token } = useToken()
+
   useEffect(() => {
-    client.getProfile().then((response) => {
+    if (token === '') return
+    client.getProfile(token).then((response) => {
       formik.setValues(response)
       setProfile(response)
     })
-  }, [client])
+  }, [client, token])
 
   if (!profile) {
     return (

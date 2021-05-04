@@ -13,8 +13,8 @@ export const authInitializer = (client: AxiosInstance): UserAuth => {
     async auth(values) {
       try {
         const {
-          data: { access, refresh },
-        } = await axios.post<AuthResponse>('http://localhost:8000/api/v1/auth/', {
+          data: { refresh, access },
+        } = await client.post<AuthResponse>('/auth/', {
           login: values.login,
           password: values.password,
         })
@@ -33,7 +33,7 @@ export const authInitializer = (client: AxiosInstance): UserAuth => {
     },
     async register(values) {
       try {
-        await client.post<AuthResponse>('/auth/', values)
+        await client.post<AuthResponse>('/users/', values)
         return {
           ok: true,
         }
