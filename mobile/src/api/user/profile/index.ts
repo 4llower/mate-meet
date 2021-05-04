@@ -22,7 +22,6 @@ export const profileInitializer = (client: AxiosInstance, token: string): UserPr
             lastName: 'Макеенко',
             firstName: 'Игорь',
             phone: '+375292932742',
-            avatar: '/',
             description: 'hello',
           })
         }, 1000)

@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
-  Alert,
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
@@ -95,14 +94,14 @@ const initialValues = {
   date: '',
 }
 
-export const CreateEvent = () => {
-  const validationSchema = object().shape({
-    title: string().required(),
-    description: string().required(),
-    address: string().required(),
-    date: string(),
-  })
+const validationSchema = object().shape({
+  title: string().required(),
+  description: string().required(),
+  address: string().required(),
+  date: string(),
+})
 
+export const CreateEvent = () => {
   // const { reset } = useNavigation()
 
   const [eventPhoto, setEventPhoto] = useState<
