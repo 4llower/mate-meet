@@ -19,7 +19,8 @@ import { showFileName } from '../../helpers'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import { useClient, useToken } from '../../providers'
-// import { useNavigation } from '@react-navigation/native'
+import { APP_NAVIGATION } from '../../enums/navigation'
+import { useNavigation } from '@react-navigation/native'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -104,7 +105,7 @@ const validationSchema = object().shape({
 })
 
 export const CreateEvent = () => {
-  // const { reset } = useNavigation()
+  const { reset } = useNavigation()
 
   const [eventPhoto, setEventPhoto] = useState<
     (DocumentPicker.DocumentResult & { name?: string }) | null
@@ -115,7 +116,11 @@ export const CreateEvent = () => {
 
   const onSubmit = async (values: any) => {
     try {
-      await client.createEvent(values, token)
+      const options = values
+      if (eventPhoto && eventPhoto.type !== 'cancel') options['eventPhoto'] = eventPhoto.file
+      await client.createEvent(options, token)
+      Alert.prompt('Event was successfully created!')
+      reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } catch (e) {
       Alert.alert('Something went wrong:(')
     }
