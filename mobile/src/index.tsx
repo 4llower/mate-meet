@@ -5,10 +5,14 @@ import { APP_NAVIGATION } from './enums/navigation'
 import { Login, Register, EventList, Profile, CreateEvent, Event } from './modules'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { LogBox } from 'react-native'
 import { useFonts } from 'expo-font'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs()
 
 export const MainScreen = () => {
   return (
