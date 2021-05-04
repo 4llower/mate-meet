@@ -99,9 +99,8 @@ export const CreateEvent = () => {
   const validationSchema = object().shape({
     title: string().required(),
     description: string().required(),
-    address: string().email(),
+    address: string().required(),
     date: string(),
-    eventPhoto: string(),
   })
 
   // const { reset } = useNavigation()
@@ -133,7 +132,7 @@ export const CreateEvent = () => {
   const handleShowTime = () => setShowTime(true)
 
   useEffect(() => {
-    field('date').onChangeText(date.format('MMMM Do YYYY') + ' ' + time.format('h:mm:ss'))
+    field('date').onChangeText(date.format('YYYY-MM-DD') + ' ' + time.format('h:mm:ss'))
   }, [date, time])
 
   return (
