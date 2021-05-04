@@ -18,7 +18,14 @@ export const eventInitializer = (client: AxiosInstance) => {
       return data
     },
     createEvent: async (values: CreateEvent, token: string) => {
-      return client.post('/events/', values, {
+      const requestData = new FormData()
+      requestData.append('name', values.name)
+      requestData.append('description', values.description)
+      requestData.append('address', values.address)
+      requestData.append('date', values.date)
+      if (values.eventPhoto) requestData.append('event_photo', values.eventPhoto)
+
+      return client.post('/events/', requestData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
