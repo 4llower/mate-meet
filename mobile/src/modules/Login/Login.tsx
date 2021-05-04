@@ -9,12 +9,14 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
+  Alert,
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
 import { APP_NAVIGATION } from '../../enums/navigation'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
+import { useClient, useToken } from '../../providers'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -88,15 +90,22 @@ export const Login = () => {
 
   const onSignUpPress = () => navigate(APP_NAVIGATION.REGISTER)
 
+  const { setToken } = useToken()
+  const client = useClient()
+
   const validationSchema = object().shape({
     login: string().required(),
     password: string().required(),
   })
 
   const onSubmit = async (values: any) => {
-    console.log(values)
-    // TO DO: Api integration
-    reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] }) // if login was success
+    const data = await client.auth(values)
+    if (data.ok) {
+      setToken(data.refresh)
+      reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
+    } else {
+      Alert.alert('Error', 'Invalid Credentials')
+    }
   }
 
   const { field, submitProps } = useForm({

@@ -3,5 +3,5 @@
 import { API_URL } from '@env'
 
 export const config = {
-  api: API_URL,
+  api: 'http://localhost:8000/api/v1',
 }

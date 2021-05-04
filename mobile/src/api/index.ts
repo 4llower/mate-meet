@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios'
 import { camelizeKeys } from 'humps'
 import { config } from '../config'
 import { PrivateUser, PrivateUserApi, PublicUser, PublicUserApi } from './user'
+import { eventInitializer } from './event'
 
 export type PublicClient = PublicUser
 export type PrivateClient = PrivateUser
@@ -26,5 +27,6 @@ export const privateClient = (token: string) => {
   const client = createClient()
   return {
     ...PrivateUserApi(client, token),
+    ...eventInitializer(client, token),
   }
 }
