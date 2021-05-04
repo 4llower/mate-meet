@@ -6,7 +6,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
 
 from libs.django.models import BaseModel
-from apps.user import managers as user_managers
+from django.contrib.auth.base_user import BaseUserManager
 
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
@@ -16,7 +16,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         verbose_name=_('Login'),
     )
     is_active = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name=_('Is active'),
     )
     is_staff = models.BooleanField(
@@ -25,8 +25,8 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     groups = None
 
-    objects = user_managers.UserManager()
     USERNAME_FIELD = 'login'
+    objects = BaseUserManager()
 
     class Meta:
         verbose_name_plural = _('Users')
@@ -52,6 +52,7 @@ class Profile(models.Model):
         to='Avatar',
         on_delete=models.PROTECT,
         related_name='profiles',
+        null=True,
         related_query_name='profile',
     )
     first_name = models.CharField(
@@ -75,3 +76,8 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = _('User profiles')
         verbose_name = _('User profile')
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.full_name = f"{self.first_name} {self.last_name}"

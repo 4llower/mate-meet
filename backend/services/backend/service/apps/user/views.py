@@ -5,7 +5,6 @@ from apps.user.models import (
     Profile)
 from apps.user.serializers import (
     UserRegisterSerializer,
-    UserSetPasswordSerializer,
     UserUpdatePasswordSerializer,
     UserProfileSerializer,
 )
@@ -31,11 +30,6 @@ class OneToOneInstanceMixin:
 class UserRegisterAPIView(generics.CreateAPIView):
     serializer_class = UserRegisterSerializer
     permission_classes = (permissions.AllowAny,)
-
-
-class UserSetPasswordAPIView(generics.CreateAPIView):
-    serializer_class = UserSetPasswordSerializer
-    permission_classes = (permissions.IsAuthenticated,)
 
 
 class UserUpdatePasswordAPIView(generics.UpdateAPIView):

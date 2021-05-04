@@ -13,80 +13,12 @@ After build service is available on [http://0.0.0.0:8000](http://0.0.0.0:8000)
 Documentations available on [http://0.0.0.0:8000/api/docs/](http://0.0.0.0:8000/api/docs/)
 
 
-### Authentication flow
-
-Create base user:
-
-```bash
-$ docker-compose run backend python3 manage.py createsuperuser --email <EMAIL>
-```
-
-After you need to get `access` token for your base user:
-
-```bash
-$ curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"email": "<EMAIL>", "password": "<PASSWORD>"}' \
-  http://0.0.0.0:8922/api/auth/password/authentication/
-```
-
-You can use the returned `access` token to prove authentication 
-for a protected view:
-
-```bash
-$ curl \
-  -X POST \
-  -H "Authorization: Bearer <ACCESS>" \
-  -H "Content-Type: application/json" \
-  -d '{"email": "...", "first_name": "...", "last_name": "...", "password": "..."}' \
-  http://0.0.0.0:8922/api/users/
-```
-
-When this `access` token expires, you can use the `refresh` token 
-to obtain another access token:
-
-```bash
-$ curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"refresh": "<REFRESH>"}' \
-  http://0.0.0.0:8922/api/auth/token/refresh/
-```
-
-You can revoke tokens and `logout`:
-
-```bash
-$ curl --request POST \
-  --url http://0.0.0.0:8922/api/auth/logout/ \
-  --header 'authorization: Bearer <ACCESS>' \
-  --header 'content-type: application/json' \
-  --data '{
-	"refresh": "<REFRESH>"
-}'
-```
-
-
-### Translations
-
-```bash
-$ docker-compose run backend python3 manage.py makemessages -l ru
-```
-
-
 ### Migrations
 
 ```bash
-$ docker-compose run backend python3 manage.py makemigrations <APP_NAME>
+$ docker-compose run backend python3 manage.py makemigrations
+$ docker-compose run backend python3 manage.py migrate
 ```
-
-
-### Tests
-
-```bash
-$ docker-compose run backend pytest tests --cov=apps --cov-report term-missing
-```
-
 
 ### Linters
 

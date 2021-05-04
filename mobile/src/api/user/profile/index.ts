@@ -11,21 +11,12 @@ export interface UserProfile {
 export const profileInitializer = (client: AxiosInstance, token: string): UserProfile => {
   return {
     async getProfile() {
-      // const { data } = await client.get<Profile>('/users/current/profile-details/', {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // })
-      return new Promise<Profile>((resolve) => {
-        setTimeout(() => {
-          resolve({
-            lastName: 'Макеенко',
-            firstName: 'Игорь',
-            phone: '+375292932742',
-            description: 'hello',
-          })
-        }, 1000)
+      const { data } = await client.get<Profile>('/users/current/profile-details/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
+      return data
     },
     async createProfile(values: Profile) {
       return await client.post('/users/current/profile/', humps.decamelizeKeys(values), {

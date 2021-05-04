@@ -88,14 +88,14 @@ const styles = StyleSheet.create({
 })
 
 const initialValues = {
-  title: '',
+  name: '',
   description: '',
   address: '',
   date: '',
 }
 
 const validationSchema = object().shape({
-  title: string().required(),
+  name: string().required(),
   description: string().required(),
   address: string().required(),
   date: string(),
@@ -144,7 +144,7 @@ export const CreateEvent = () => {
               placeholder="Title"
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
-              {...field('title')}
+              {...field('name')}
             />
             <TextInput
               placeholder="Description"

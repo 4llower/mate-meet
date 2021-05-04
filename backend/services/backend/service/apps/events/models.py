@@ -11,6 +11,13 @@ class Event(BaseModel):
         max_length=64,
         verbose_name=_('Event Name'),
     )
+    event_photo = models.ForeignKey(
+        to='EventPhoto',
+        on_delete=models.PROTECT,
+        related_name='profiles',
+        related_query_name='profile',
+        null=True,
+    )
     author = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -19,20 +26,21 @@ class Event(BaseModel):
     )
     status = models.CharField(
         max_length=64,
-        choices=EventStatusEnum.get_choices(),
+        choices=EventStatusEnum.choices(),
         default=EventStatusEnum.NOT_STARTED,
     )
     date = models.DateTimeField(
         null=True,
     )
     is_active = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name=_('Is active'),
     )
     participants = models.ManyToManyField(
         to=User,
         related_query_name='participant',
         related_name='participants',
+        null=True,
     )
     description = models.TextField()
 

@@ -33,7 +33,7 @@
   }
 } (function (jQuery) {
   // This is needed so we can catch the AMD loader configuration and use it
-  // The inner files should be wrapped (by `banner.start.js`) in a function that
+  // The inner file should be wrapped (by `banner.start.js`) in a function that
   // returns the AMD loader references.
   var S2 =(function () {
   // Restore the Select2 AMD loader so it can be used
@@ -89,7 +89,7 @@ var requirejs, require, define;
             // If wanting node ID compatibility, strip .js from end
             // of IDs. Have to do this here, and not in nameToUrl
             // because node allows either .js or non .js to map
-            // to same files.
+            // to same file.
             if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
                 name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
             }
@@ -4905,7 +4905,7 @@ S2.define('select2/defaults',[
             // because of how Select2 helps load all possible translation files.
             if (options.debug && window.console && console.warn) {
               console.warn(
-                'Select2: The language files for "' + name + '" could not be ' +
+                'Select2: The language file for "' + name + '" could not be ' +
                 'automatically loaded. A fallback will be used instead.'
               );
             }
@@ -6576,7 +6576,7 @@ S2.define('jquery.select2',[
   return Select2;
 });
 
-  // Return the AMD loader configuration so it can be used outside of this files
+  // Return the AMD loader configuration so it can be used outside of this file
   return {
     define: S2.define,
     require: S2.require
@@ -6588,7 +6588,7 @@ S2.define('jquery.select2',[
   var select2 = S2.require('jquery.select2');
 
   // Hold the AMD module references on the jQuery function that was just loaded
-  // This allows Select2 to use the internal loader outside of this files, such
+  // This allows Select2 to use the internal loader outside of this file, such
   // as in the language files.
   jQuery.fn.select2.amd = S2;
 

@@ -4,7 +4,7 @@ from django.contrib.admin import AdminSite, ModelAdmin
 from django.utils.translation import gettext_lazy as _
 
 from apps.events.models import Event
-from apps.files.models import Avatar
+from apps.files.models import Avatar, EventPhoto
 from apps.user.models import Profile
 
 User = get_user_model()
@@ -51,3 +51,4 @@ matemeet_admin = MateMeetAdminSite(name='matemeet_admin')
 matemeet_admin.register(User, MateMeetUserAdmin)
 matemeet_admin.register(Event, EventAdmin)
 matemeet_admin.register(Avatar)
+matemeet_admin.register(EventPhoto)

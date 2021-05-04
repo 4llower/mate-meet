@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=64, verbose_name='Event Name')),
-                ('status', models.CharField(choices=[('not started', 'NOT_STARTED'), ('in progress', 'IN_PROGRESS'), ('finished', 'FINISHED')], default=apps.events.consts.EventStatusEnum['NOT_STARTED'], max_length=64)),
+                ('status', models.CharField(choices=[('not started', 'NOT_STARTED'), ('in progress', 'IN_PROGRESS'), ('finished', 'FINISHED')], default='not started', max_length=64)),
                 ('date', models.DateTimeField(null=True)),
                 ('is_active', models.BooleanField(default=False, verbose_name='Is active')),
                 ('description', models.TextField()),

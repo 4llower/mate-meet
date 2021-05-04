@@ -79,7 +79,7 @@ export const Event: React.FC<any> = ({ ...props }) => {
           <Text style={styles.link}>{generateTagsView(tags, 20)}</Text>
         </View>
         <View style={styles.enterButton}>
-          <Button title="Enter" />
+          <Button title="Connect" />
         </View>
       </ScrollView>
     </View>

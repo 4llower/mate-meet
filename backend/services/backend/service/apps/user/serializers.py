@@ -10,49 +10,45 @@ from apps.user.models import (
 )
 
 
-class UserRegisterSerializer(serializers.Serializer):
+class UserRegisterSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     login = serializers.CharField(required=True)
-    link = serializers.ReadOnlyField()
+
+    class Meta:
+        fields = (
+            'uuid',
+            'password',
+            'login',
+
+        )
+        model = get_user_model()
+
+        extra_kwargs = {
+            'password': {
+                'write_only': True,
+                'required': True
+            }
+        }
 
     @staticmethod
     def validate_login(value):
         if User.objects.filter(login=value, is_active=True).exists():
-            raise serializers.ValidationError("User with such login is already registered in our system")
+            raise serializers.ValidationError("Пользователь с таким логином уже существует")
+        return value
+
+    @staticmethod
+    def validate_password(value):
+        try:
+            password_validation.validate_password(value)
+        except ValidationError as error:
+            raise serializers.ValidationError(
+                error.messages
+            )
         return value
 
     @transaction.atomic()
     def create(self, validated_data):
         return UserManagementService.create_user(**validated_data)
-
-
-class UserSetPasswordSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        fields = ('password', )
-        model = get_user_model()
-
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-
-    @staticmethod
-    def validate_password(value):
-        if value:
-            try:
-                password_validation.validate_password(value)
-            except ValidationError as error:
-                raise serializers.ValidationError(
-                    error.messages
-                )
-        else:
-            raise serializers.ValidationError('Необходимо ввести пароль')
-        return value
-
-    @transaction.atomic()
-    def create(self, validated_data):
-        user = self.context['request'].user
-        return UserManagementService.set_password(user, **validated_data)
 
 
 class UserUpdatePasswordSerializer(serializers.ModelSerializer):
@@ -79,8 +75,10 @@ class UserUpdatePasswordSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    avatar = serializers.SerializerMethodField()
 
     class Meta:
+        model = Profile
         fields = (
             'uuid',
             'user',
@@ -88,8 +86,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'last_name',
             'description',
             'phone_number',
+            'avatar',
         )
-        model = Profile
+
+    @staticmethod
+    def get_avatar(attr):
+        return attr.avatar.file.url if attr.avatar else None
 
     def create(self, validated_data):
         try:

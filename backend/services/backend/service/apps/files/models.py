@@ -35,3 +35,15 @@ class Avatar(Image):
     class Meta:
         verbose_name_plural = _('Avatars')
         verbose_name = _('Avatar')
+
+
+class EventPhoto(Image):
+    file = models.ImageField(
+        upload_to='event/',
+        verbose_name=_('event_photo'),
+        help_text=_('Event photo file')
+    )
+
+    class Meta:
+        verbose_name_plural = _('Event photo files')
+        verbose_name = _('Event photo file')

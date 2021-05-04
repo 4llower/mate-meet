@@ -14,7 +14,7 @@ services:
       - pg-data-matemeet:/var/lib/postgresql/data
 
 
-  matemeet-api-service:
+  backend:
     image: matemeet-backend
     container_name: django-backend
     user: appuser
@@ -28,7 +28,6 @@ services:
       - ./services/backend/service/api:/home/appuser/project/api/
       - ./services/backend/service/apps:/home/appuser/project/apps/
       - ./services/backend/service/libs:/home/appuser/project/libs/
-      - ./services/backend/service/tests:/home/appuser/project/tests/
       - ./services/backend/service/static:/home/appuser/project/static/
       - ./services/backend/service/locales:/home/appuser/project/locales/
       - ./services/backend/service/settings:/home/appuser/project/settings/
