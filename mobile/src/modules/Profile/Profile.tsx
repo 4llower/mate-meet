@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, Image, TextInput, ActivityIndicator } from 'react-native'
 import { UserProps } from '../../types/user'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Input } from 'react-native-elements'
+import { Profile as IProfile } from '../../types/profile'
+import { useClient } from '../../providers'
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
   profilePhoto: {
     borderRadius: 100,
@@ -25,32 +32,33 @@ const styles = StyleSheet.create({
   },
 })
 
-// const dataWithPhoto: UserProps = {
-//   name: 'Никита',
-//   description:
-//     'Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик',
-//   profilePhoto:
-//     'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg',
-// }
-
-const dataWithoutPhoto: UserProps = {
-  name: 'Никита',
-  description:
-    'Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик Жамойдик',
-}
-
 export const Profile: React.FC = ({}) => {
-  const [profile] = useState(dataWithoutPhoto)
+  const [profile, setProfile] = useState<null | IProfile>(null)
+  const client = useClient()
+
+  useEffect(() => {
+    client.getProfile().then(setProfile)
+  }, [client])
+
+  if (!profile) {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.profilePhotoContainer}>
-        {profile.profilePhoto && (
-          <Image source={{ uri: profile.profilePhoto }} style={styles.profilePhoto} />
-        )}
-        {!profile.profilePhoto && <Ionicons name="happy" size={200} />}
+        {/*{profile.profilePhoto && (*/}
+        {/*  <Image source={{ uri: profile.profilePhoto }} style={styles.profilePhoto} />*/}
+        {/*)}*/}
+        {/*{!profile.profilePhoto && <Ionicons name="happy" size={200} />}*/}
       </View>
-      <View style={styles.profileContainer}></View>
+      <View style={styles.profileContainer}>
+        <TextInput />
+      </View>
     </View>
   )
 }
