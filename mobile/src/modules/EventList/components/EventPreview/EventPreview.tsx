@@ -69,8 +69,7 @@ export const EventPreview: React.FC<Props> = ({
   description,
   photo,
   date,
-  eventUsers,
-  tags,
+  participants,
   onPress,
 }) => {
   return (
@@ -81,10 +80,10 @@ export const EventPreview: React.FC<Props> = ({
         <View style={styles.description}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
-          <Text style={styles.link}>{generateTagsView(tags)}</Text>
+          {/*<Text style={styles.link}>{generateTagsView(tags)}</Text>*/}
         </View>
         <Text style={styles.date}>{moment(date).format('MMM Do, h:mm a')}</Text>
-        <Participants numberParticipants={eventUsers.length} />
+        <Participants numberParticipants={participants.length} />
       </View>
     </TouchableNativeFeedback>
   )

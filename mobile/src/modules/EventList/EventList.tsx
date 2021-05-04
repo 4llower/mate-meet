@@ -20,7 +20,6 @@ export const EventList: React.FC = () => {
   const client = useClient()
 
   useEffect(() => {
-    if (token === '') return
     client.getAllEvents(token).then((response) => setData(response))
   }, [])
 

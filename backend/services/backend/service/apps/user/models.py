@@ -8,6 +8,24 @@ from django.utils.translation import gettext_lazy as _
 from libs.django.models import BaseModel
 from django.contrib.auth.base_user import BaseUserManager
 
+class AccountManager(BaseUserManager):
+    def create_user(self, login, password=None):
+        user = self.model(login=login)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, login, password):
+        user = self.create_user(
+            login=login,
+            password=password,
+        )
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     login = models.CharField(
@@ -26,7 +44,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     groups = None
 
     USERNAME_FIELD = 'login'
-    objects = BaseUserManager()
+    objects = AccountManager()
 
     class Meta:
         verbose_name_plural = _('Users')

@@ -17,6 +17,7 @@ import { APP_NAVIGATION } from '../../enums/navigation'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
 import { useClient, useToken } from '../../providers'
+import { config } from '../../config'
 
 const styles = StyleSheet.create({
   containerView: {

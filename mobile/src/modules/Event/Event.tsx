@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
 })
 
 export const Event: React.FC<any> = ({ ...props }) => {
-  const { name, description, photo, date, eventUsers, tags } = props.route.params
+  const { name, description, photo, date, participants } = props.route.params
+  console.log(participants)
   return (
     <View style={styles.container}>
       <ScrollView style={styles.propsView}>
@@ -64,9 +65,9 @@ export const Event: React.FC<any> = ({ ...props }) => {
         </View>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Participants:'}</Text>
-          {eventUsers.map((user: any) => (
-            <Text style={styles.link} key={user}>
-              {user}
+          {participants.map((user: any) => (
+            <Text style={styles.link} key={user.fullName}>
+              {user.fullName}
             </Text>
           ))}
         </View>
@@ -74,10 +75,10 @@ export const Event: React.FC<any> = ({ ...props }) => {
           <Text style={styles.title}>{'Date:'}</Text>
           <Text style={styles.description}>{moment(date).format('MMMM Do YYYY, h:mm a')}</Text>
         </View>
-        <View style={styles.descriptionView}>
-          <Text style={styles.title}>{'Tags:'}</Text>
-          <Text style={styles.link}>{generateTagsView(tags, 20)}</Text>
-        </View>
+        {/*<View style={styles.descriptionView}>*/}
+        {/*  <Text style={styles.title}>{'Tags:'}</Text>*/}
+        {/*  <Text style={styles.link}>{generateTagsView(tags, 20)}</Text>*/}
+        {/*</View>*/}
         <View style={styles.enterButton}>
           <Button title="Connect" />
         </View>

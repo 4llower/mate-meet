@@ -83,6 +83,7 @@ export const Profile: React.FC = ({}) => {
   useEffect(() => {
     if (token === '') return
     client.getProfile(token).then((response) => {
+      console.error(response)
       formik.setValues(response)
       setProfile(response)
     })

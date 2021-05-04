@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
+  Alert,
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
@@ -17,6 +18,7 @@ import * as DocumentPicker from 'expo-document-picker'
 import { showFileName } from '../../helpers'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
+import { useClient, useToken } from '../../providers'
 // import { useNavigation } from '@react-navigation/native'
 
 const styles = StyleSheet.create({
@@ -108,8 +110,15 @@ export const CreateEvent = () => {
     (DocumentPicker.DocumentResult & { name?: string }) | null
   >(null)
 
+  const { token } = useToken()
+  const client = useClient()
+
   const onSubmit = async (values: any) => {
-    console.log(values)
+    try {
+      await client.createEvent(values, token)
+    } catch (e) {
+      Alert.alert('Something went wrong:(')
+    }
   }
 
   const { field, submitProps } = useForm({

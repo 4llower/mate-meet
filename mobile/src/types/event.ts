@@ -1,11 +1,13 @@
 export interface EventProps {
   date: string
   name: string
-  createdBy: string
+  author: {
+    uuid: string
+    fullName: string
+  }
   description: string
-  eventUsers: string[]
-  status: 'inProgress' | 'finished' | 'notStarted'
-  tags: string[]
+  participants: { uuid: string; fullName: string }[]
+  status: 'in progress' | 'finished' | 'not started'
   photo?: string
   rate?: number
 }
