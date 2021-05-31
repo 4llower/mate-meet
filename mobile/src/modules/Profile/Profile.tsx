@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, ActivityIndicator, Image, Alert } from 'react-native'
+import React, { useEffect, useMemo, useState } from 'react'
+import { StyleSheet, View, ActivityIndicator, Alert, Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Profile as IProfile } from '../../types/profile'
 import { useClient, useToken } from '../../providers'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
-import { config } from '../../config'
 import { TextInput } from '../../components'
 
 const styles = StyleSheet.create({
@@ -60,16 +58,23 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
+  title: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 35,
+    fontFamily: 'Montserrat',
+    marginBottom: 20,
+  },
 })
 
 const validationSchema = object().shape({
   firstName: string().required(),
   lastName: string().required(),
-  phone: string().required(),
+  phoneNumber: string().required(),
   description: string(),
 })
 
-export const Profile: React.FC = ({}) => {
+export const Profile: React.FC = () => {
   const [profile, setProfile] = useState<null | IProfile>(null)
   const client = useClient()
   const { token } = useToken()
@@ -77,7 +82,6 @@ export const Profile: React.FC = ({}) => {
   useEffect(() => {
     if (token === '') return
     client.getProfile(token).then((response) => {
-      console.error(response)
       formik.setValues(response)
       setProfile(response)
     })
@@ -86,7 +90,7 @@ export const Profile: React.FC = ({}) => {
   const onSubmit = async (values: any) => {
     try {
       await client.updateProfile(values, token)
-      Alert.prompt('Success', 'You information was successfully updated.')
+      Alert.alert('Success', 'You information was successfully updated.')
     } catch (e) {
       Alert.alert('Error', 'Something went wrong:(')
     }
@@ -98,6 +102,13 @@ export const Profile: React.FC = ({}) => {
     onSubmit,
   })
 
+  const title = useMemo(() => {
+    if (!profile) return 'Loading...'
+    if (Object.values(profile).filter((tune) => tune && tune.length).length >= 4)
+      return 'Manage your profile settings'
+    else return 'Fill all fields of your profile'
+  }, [profile])
+
   if (!profile) {
     return (
       <View style={[styles.loaderContainer, styles.loaderHorizontal]}>
@@ -108,16 +119,13 @@ export const Profile: React.FC = ({}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.profilePhotoContainer}>
-        {profile.avatar && (
-          <Image source={{ uri: config.media + profile.avatar }} style={styles.profilePhoto} />
-        )}
-        {!profile.avatar && <Ionicons name="happy" size={200} />}
-      </View>
       <View style={styles.container}>
-        <TextInput style={styles.input} {...field('firstName')} />
-        <TextInput style={styles.input} {...field('lastName')} />
-        <TextInput style={styles.input} {...field('phoneNumber')} />
+        <View>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+        <TextInput style={styles.input} {...field('firstName')} placeholder="Ivan" />
+        <TextInput style={styles.input} {...field('lastName')} placeholder="Ivanov" />
+        <TextInput style={styles.input} {...field('phoneNumber')} placeholder="+375292932742" />
         <TextInput style={styles.input} {...field('description')} />
         <Button buttonStyle={styles.button} title="Save" {...submitProps} />
       </View>

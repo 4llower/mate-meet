@@ -169,7 +169,6 @@ export const Register = () => {
       console.log(new Array(password.length))
       new Array(password.length).fill(0).forEach((_, index) => {
         const char = password.charAt(index)
-        console.log(char)
         if (char >= '0' && char <= '9') rules.hasSymbolOrDigit = true
         if ('!$%^&*()_+|~-=`{}[]:";\'<>?,./'.includes(char)) rules.hasSymbolOrDigit = true
         if (char >= 'a' && char <= 'z') lowerCaseAndUpperCase.lowerCase = true
@@ -177,7 +176,6 @@ export const Register = () => {
       })
       if (lowerCaseAndUpperCase['lowerCase'] && lowerCaseAndUpperCase['upperCase'])
         rules.hasUpperCaseAndLowerCase = true
-      console.log(rules)
       setPasswordRules(rules)
     }
   }, [formik.values, setPasswordRules])
