@@ -14,8 +14,8 @@ import {
 import { Button } from 'react-native-elements'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
-import * as DocumentPicker from 'expo-document-picker'
-import { showFileName } from '../../helpers'
+// import * as DocumentPicker from 'expo-document-picker'
+// import { showFileName } from '../../helpers'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import { useClient, useToken } from '../../providers'
@@ -107,18 +107,17 @@ const validationSchema = object().shape({
 export const CreateEvent = () => {
   const { reset } = useNavigation()
 
-  const [eventPhoto, setEventPhoto] = useState<
-    (DocumentPicker.DocumentResult & { name?: string }) | null
-  >(null)
+  // const [eventPhoto, setEventPhoto] = useState<
+  //   (DocumentPicker.DocumentResult & { name?: string }) | null
+  // >(null)
 
   const { token } = useToken()
   const client = useClient()
 
   const onSubmit = async (values: any) => {
     try {
-      const options = values
-      if (eventPhoto && eventPhoto.type !== 'cancel') options['eventPhoto'] = eventPhoto.file
-      await client.createEvent(options, token)
+      // if (eventPhoto && eventPhoto.type !== 'cancel') options['eventPhoto'] = eventPhoto.file
+      await client.createEvent(values, token)
       Alert.prompt('Event was successfully created!')
       reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } catch (e) {
@@ -132,8 +131,8 @@ export const CreateEvent = () => {
     onSubmit: onSubmit,
   })
 
-  const onFileUpload = async () =>
-    setEventPhoto(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
+  // const onFileUpload = async () =>
+  //   setEventPhoto(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
 
   const [time, setTime] = useState(moment())
   const [date, setDate] = useState(moment())
@@ -205,12 +204,12 @@ export const CreateEvent = () => {
                 }}
               />
             )}
-            <View style={styles.upload}>
-              <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />
-              <Text style={styles.uploadFileName}>
-                {showFileName(eventPhoto?.name, 'Choose event photo')}
-              </Text>
-            </View>
+            {/*<View style={styles.upload}>*/}
+            {/*  <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />*/}
+            {/*  <Text style={styles.uploadFileName}>*/}
+            {/*    {showFileName(eventPhoto?.name, 'Choose event photo')}*/}
+            {/*  </Text>*/}
+            {/*</View>*/}
             <Button buttonStyle={styles.loginButton} title="Create New Event" {...submitProps} />
           </View>
         </View>
