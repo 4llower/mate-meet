@@ -39,4 +39,4 @@ yarn
 ```
 yarn start
 ```
-*Need installing Expo GO to run application in device, or using emulator with Expo API*
+*Need installing Expo GO to run application on device, or using emulator with Expo API*

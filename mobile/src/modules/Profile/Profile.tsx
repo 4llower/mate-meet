@@ -85,9 +85,9 @@ export const Profile: React.FC = ({}) => {
   const onSubmit = async (values: any) => {
     try {
       await client.updateProfile(values, token)
-      Alert.prompt('You information was successfully updated.')
+      Alert.prompt('Success', 'You information was successfully updated.')
     } catch (e) {
-      Alert.alert('Something went wrong:(')
+      Alert.alert('Error', 'Something went wrong:(')
     }
   }
 

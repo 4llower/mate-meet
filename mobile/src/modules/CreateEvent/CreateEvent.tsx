@@ -122,7 +122,7 @@ export const CreateEvent = () => {
       Alert.prompt('Event was successfully created!')
       reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } catch (e) {
-      Alert.alert('Something went wrong:(')
+      Alert.alert('Error', 'Something went wrong:(')
     }
   }
 

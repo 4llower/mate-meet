@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   Keyboard,
@@ -91,27 +91,39 @@ const initialValues = {
   password: '',
 }
 
+const validationSchema = object().shape({
+  login: string().required(),
+  password: string().required(),
+  email: string().email(),
+  description: string(),
+})
+
 export const Register = () => {
-  const validationSchema = object().shape({
-    login: string().required(),
-    password: string().required(),
-    email: string().email(),
-    description: string(),
-  })
-
   const { reset } = useNavigation()
-
   // const [avatar, setAvatar] = useState<(DocumentPicker.DocumentResult & { name?: string }) | null>(
   //   null,
   // )
-
   const [repeatedPassword, setRepeatedPassword] = useState<string>('')
   const client = useClient()
   const { setToken } = useToken()
+  const [passwordRules, setPasswordRules] = useState<{
+    minLength?: boolean
+    hasUpperCaseAndLowerCase?: boolean
+    hasSymbolOrDigit?: boolean
+  }>({})
 
   const onSubmit = async (values: any) => {
+    let isPasswordCorrect = true
+    Object.entries(passwordRules).forEach(([, value]) => {
+      if (!isPasswordCorrect) return
+      if (!value) isPasswordCorrect = false
+    })
+    if (!isPasswordCorrect) {
+      Alert.alert('Error', "Password doesn't fit the condition")
+      return
+    }
     if (values.password != repeatedPassword) {
-      Alert.alert("Passwords don't match")
+      Alert.alert('Error', "Passwords don't match")
       return
     }
     const { ok } = await client.register({ login: values.login, password: values.password })
@@ -121,18 +133,46 @@ export const Register = () => {
         setToken(data.access)
         void (await client.createProfile(values, data.access))
         reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
-      } else Alert.alert('Something went wrong')
-    } else Alert.alert('Something went wrong')
+      } else Alert.alert('Error', 'Something went wrong')
+    } else Alert.alert('Error', 'Something went wrong')
   }
 
-  const { field, submitProps } = useForm({
+  // const onFileUpload = async () =>
+  //   setAvatar(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
+
+  const { field, submitProps, formik } = useForm({
     validationSchema,
     initialValues,
     onSubmit: onSubmit,
   })
 
-  // const onFileUpload = async () =>
-  //   setAvatar(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
+  useEffect(() => {
+    const password = String(formik.values.password)
+    if (password) {
+      const rules = {
+        minLength: false,
+        hasSymbolOrDigit: false,
+        hasUpperCaseAndLowerCase: false,
+      }
+      if (password.length >= 8) {
+        rules.minLength = true
+      }
+      const lowerCaseAndUpperCase = {
+        lowerCase: false,
+        upperCase: false,
+      }
+      new Array(password.length).forEach((_, index) => {
+        const char = password.charAt(index)
+        if (char >= '0' && char <= '9') rules.hasSymbolOrDigit = true
+        if ('!$%^&*()_+|~-=`{}[]:";\'<>?,./'.includes(char)) rules.hasSymbolOrDigit = true
+        if (char >= 'a' && char <= 'z') lowerCaseAndUpperCase.lowerCase = true
+        if (char >= 'A' && char <= 'Z') lowerCaseAndUpperCase.upperCase = true
+      })
+      if (lowerCaseAndUpperCase['lowerCase'] && lowerCaseAndUpperCase['upperCase'])
+        rules.hasUpperCaseAndLowerCase = true
+      setPasswordRules(rules)
+    }
+  }, [formik.values, setPasswordRules])
 
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
