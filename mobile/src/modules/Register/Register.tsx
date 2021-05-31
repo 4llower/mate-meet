@@ -14,10 +14,10 @@ import {
 import { Button } from 'react-native-elements'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
-import * as DocumentPicker from 'expo-document-picker'
+// import * as DocumentPicker from 'expo-document-picker'
 import { APP_NAVIGATION } from '../../enums/navigation'
 import { useNavigation } from '@react-navigation/native'
-import { showFileName } from '../../helpers'
+// import { showFileName } from '../../helpers'
 import { useClient, useToken } from '../../providers'
 
 const styles = StyleSheet.create({
@@ -101,9 +101,9 @@ export const Register = () => {
 
   const { reset } = useNavigation()
 
-  const [avatar, setAvatar] = useState<(DocumentPicker.DocumentResult & { name?: string }) | null>(
-    null,
-  )
+  // const [avatar, setAvatar] = useState<(DocumentPicker.DocumentResult & { name?: string }) | null>(
+  //   null,
+  // )
 
   const [repeatedPassword, setRepeatedPassword] = useState<string>('')
   const client = useClient()
@@ -131,8 +131,8 @@ export const Register = () => {
     onSubmit: onSubmit,
   })
 
-  const onFileUpload = async () =>
-    setAvatar(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
+  // const onFileUpload = async () =>
+  //   setAvatar(await DocumentPicker.getDocumentAsync({ type: 'image/*' }))
 
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
@@ -173,10 +173,10 @@ export const Register = () => {
               style={styles.loginFormTextInput}
               secureTextEntry={true}
             />
-            <View style={styles.upload}>
-              <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />
-              <Text style={styles.uploadFileName}>{showFileName(avatar?.name)}</Text>
-            </View>
+            {/*<View style={styles.upload}>*/}
+            {/*  <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />*/}
+            {/*  <Text style={styles.uploadFileName}>{showFileName(avatar?.name)}</Text>*/}
+            {/*</View>*/}
             <Button buttonStyle={styles.loginButton} title="Register" {...submitProps} />
           </View>
         </View>
