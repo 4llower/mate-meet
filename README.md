@@ -1,4 +1,8 @@
-# Mate-Meet
+# Mate Meet
+
+*Application from student to students :)*
+
+[ Research & study together ]
 
 The project follows the style described in [pep8](https://www.python.org/dev/peps/pep-0008/)
 
