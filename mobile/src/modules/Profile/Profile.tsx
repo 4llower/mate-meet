@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, TextInput, ActivityIndicator, Image, Alert } from 'react-native'
+import { StyleSheet, View, ActivityIndicator, Image, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Profile as IProfile } from '../../types/profile'
 import { useClient, useToken } from '../../providers'
@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
 import { config } from '../../config'
+import { TextInput } from '../../components'
 
 const styles = StyleSheet.create({
   loaderContainer: {

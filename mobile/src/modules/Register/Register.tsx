@@ -4,7 +4,6 @@ import {
   Keyboard,
   Text,
   View,
-  TextInput,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
@@ -19,6 +18,7 @@ import { APP_NAVIGATION } from '../../enums/navigation'
 import { useNavigation } from '@react-navigation/native'
 // import { showFileName } from '../../helpers'
 import { useClient, useToken } from '../../providers'
+import { TextInput } from '../../components'
 
 const styles = StyleSheet.create({
   containerView: {

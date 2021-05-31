@@ -5,7 +5,6 @@ import {
   Keyboard,
   Text,
   View,
-  TextInput,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
@@ -17,7 +16,7 @@ import { APP_NAVIGATION } from '../../enums/navigation'
 import { useForm } from '../../hooks'
 import { object, string } from 'yup'
 import { useClient, useToken } from '../../providers'
-import { config } from '../../config'
+import { TextInput } from '../../components'
 
 const styles = StyleSheet.create({
   containerView: {
