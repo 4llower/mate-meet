@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native'
 // import { showFileName } from '../../helpers'
 import { useClient, useToken } from '../../providers'
 import { TextInput } from '../../components'
+import { PasswordRule } from './components'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -69,6 +70,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     marginTop: 10,
     backgroundColor: 'transparent',
+  },
+  passwordRules: {
+    marginLeft: 15,
+    marginRight: 15,
   },
   upload: {
     flex: 0.5,
@@ -161,8 +166,10 @@ export const Register = () => {
         lowerCase: false,
         upperCase: false,
       }
-      new Array(password.length).forEach((_, index) => {
+      console.log(new Array(password.length))
+      new Array(password.length).fill(0).forEach((_, index) => {
         const char = password.charAt(index)
+        console.log(char)
         if (char >= '0' && char <= '9') rules.hasSymbolOrDigit = true
         if ('!$%^&*()_+|~-=`{}[]:";\'<>?,./'.includes(char)) rules.hasSymbolOrDigit = true
         if (char >= 'a' && char <= 'z') lowerCaseAndUpperCase.lowerCase = true
@@ -170,6 +177,7 @@ export const Register = () => {
       })
       if (lowerCaseAndUpperCase['lowerCase'] && lowerCaseAndUpperCase['upperCase'])
         rules.hasUpperCaseAndLowerCase = true
+      console.log(rules)
       setPasswordRules(rules)
     }
   }, [formik.values, setPasswordRules])
@@ -213,6 +221,17 @@ export const Register = () => {
               style={styles.loginFormTextInput}
               secureTextEntry={true}
             />
+            <View style={styles.passwordRules}>
+              <PasswordRule correct={passwordRules.minLength}>
+                Contains at least 8 characters
+              </PasswordRule>
+              <PasswordRule correct={passwordRules.hasUpperCaseAndLowerCase}>
+                Contains both LC(a–z) and UC(A–Z) symbols
+              </PasswordRule>
+              <PasswordRule correct={passwordRules.hasSymbolOrDigit}>
+                Contains at least one digit (0-9) or symbol.
+              </PasswordRule>
+            </View>
             {/*<View style={styles.upload}>*/}
             {/*  <Button onPress={onFileUpload} icon={{ name: 'camera' }} type="outline" />*/}
             {/*  <Text style={styles.uploadFileName}>{showFileName(avatar?.name)}</Text>*/}
