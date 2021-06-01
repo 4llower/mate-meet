@@ -17,3 +17,24 @@ export const showFileName = (fileName?: string, fallback = 'Choose photo from ga
     (fileName.length > MAXIMUM_AVATAR_NAME_LENGTH ? '...' : '')
   )
 }
+
+export const parseDescriptionToDescriptionAndGeo = (
+  description: string,
+): { description: string; geo?: string } => {
+  const separator = '|||'
+
+  const separatorIndex = description.indexOf(separator)
+
+  if (separatorIndex === -1)
+    return {
+      description,
+    }
+
+  const newDescription = description.slice(0, separatorIndex - 1)
+  const geo = description.slice(separatorIndex + separator.length)
+
+  return {
+    description: newDescription,
+    geo,
+  }
+}

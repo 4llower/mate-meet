@@ -4,11 +4,11 @@ import {
   Keyboard,
   Text,
   View,
-  TextInput,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   StyleSheet,
   Alert,
+  Modal,
 } from 'react-native'
 
 import { Button } from 'react-native-elements'
@@ -21,6 +21,8 @@ import moment from 'moment'
 import { useClient, useToken } from '../../providers'
 import { APP_NAVIGATION } from '../../enums/navigation'
 import { useNavigation } from '@react-navigation/native'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { TextInput } from '../../components'
 
 const styles = StyleSheet.create({
   containerView: {
@@ -66,6 +68,20 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
+  defaultButton: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 15,
+    marginRight: 15,
+    height: 45,
+    fontFamily: 'Montserrat',
+  },
+  place: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 10,
+    fontFamily: 'Montserrat',
+  },
   picker: {
     borderColor: 'rgba(0, 0, 0, 0.1)',
     borderRadius: 4,
@@ -88,36 +104,47 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     fontFamily: 'Montserrat',
   },
+  map: {
+    marginLeft: 15,
+    marginRight: 15,
+    width: 70,
+    height: 100,
+  },
+  modal: {
+    minHeight: 700,
+    backgroundColor: 'white',
+  },
 })
 
 const initialValues = {
   name: '',
   description: '',
-  address: '',
   date: '',
 }
 
 const validationSchema = object().shape({
   name: string().required(),
   description: string().required(),
-  address: string().required(),
   date: string(),
 })
 
 export const CreateEvent = () => {
   const { reset } = useNavigation()
-
   // const [eventPhoto, setEventPhoto] = useState<
   //   (DocumentPicker.DocumentResult & { name?: string }) | null
   // >(null)
-
   const { token } = useToken()
   const client = useClient()
+  const [address, setAddress] = useState<null | string>(null)
 
   const onSubmit = async (values: any) => {
+    if (!address) {
+      Alert.alert('Error', 'Choose the address of event')
+      return
+    }
     try {
       // if (eventPhoto && eventPhoto.type !== 'cancel') options['eventPhoto'] = eventPhoto.file
-      await client.createEvent(values, token)
+      await client.createEvent({ ...values, address }, token)
       Alert.prompt('Event was successfully created!')
       reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } catch (e) {
@@ -136,7 +163,7 @@ export const CreateEvent = () => {
 
   const [time, setTime] = useState(moment())
   const [date, setDate] = useState(moment())
-
+  const [visible, setVisible] = useState(false)
   const [showDate, setShowDate] = useState(false)
   const [showTime, setShowTime] = useState(false)
 
@@ -153,6 +180,43 @@ export const CreateEvent = () => {
         <View style={styles.loginScreenContainer}>
           <View style={styles.loginFormView}>
             <Text style={styles.logoText}>New Event</Text>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={visible}
+              onRequestClose={() => setVisible(false)}
+            >
+              <View style={styles.modal}>
+                <GooglePlacesAutocomplete
+                  placeholder="Search"
+                  styles={{
+                    textInput: {
+                      height: 43,
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      borderRadius: 5,
+                      borderWidth: 1,
+                      borderColor: '#eaeaea',
+                      backgroundColor: '#fafafa',
+                      paddingLeft: 10,
+                      marginLeft: 15,
+                      marginRight: 15,
+                      marginTop: 5,
+                      marginBottom: 5,
+                    },
+                  }}
+                  onPress={({ description }) => {
+                    setAddress(description)
+                    setVisible(false)
+                  }}
+                  query={{
+                    key: 'AIzaSyDjCSyToq40SxCK67DLzLFMfaixYls6tfQ',
+                    language: 'ru',
+                  }}
+                  onFail={console.log}
+                />
+              </View>
+            </Modal>
             <TextInput
               placeholder="Title"
               placeholderTextColor="#c4c3cb"
@@ -164,12 +228,6 @@ export const CreateEvent = () => {
               numberOfLines={3}
               {...field('description')}
               placeholderTextColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-            />
-            <TextInput
-              placeholder="Address"
-              placeholderTextColor="#c4c3cb"
-              {...field('address')}
               style={styles.loginFormTextInput}
             />
             <Text style={styles.picker} onPress={handleShowDate}>
@@ -210,6 +268,13 @@ export const CreateEvent = () => {
             {/*    {showFileName(eventPhoto?.name, 'Choose event photo')}*/}
             {/*  </Text>*/}
             {/*</View>*/}
+            <Button
+              buttonStyle={styles.defaultButton}
+              title="Choose place"
+              type="outline"
+              onPress={() => setVisible(true)}
+            />
+            {address && <Text style={styles.place}>{address}</Text>}
             <Button buttonStyle={styles.loginButton} title="Create New Event" {...submitProps} />
           </View>
         </View>
