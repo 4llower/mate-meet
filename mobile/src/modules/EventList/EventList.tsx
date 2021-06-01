@@ -18,12 +18,16 @@ export const EventList: React.FC = () => {
   const [data, setData] = useState<EventProps[]>([])
   const { token } = useToken()
   const client = useClient()
+  const { navigate } = useNavigation()
 
   useEffect(() => {
     client.getAllEvents(token).then((response) => setData(response))
+    const interval = setInterval(
+      () => client.getAllEvents(token).then((response) => setData(response)),
+      1000,
+    )
+    return () => clearInterval(interval)
   }, [])
-
-  const { navigate } = useNavigation()
 
   const onEventPress = (props: EventProps) => {
     navigate(APP_NAVIGATION.EVENT, props)

@@ -1,8 +1,9 @@
-import React from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Text, View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import moment from 'moment'
 import { parseDescriptionToDescriptionAndGeo } from '../../helpers'
+import { useClient, useToken } from '../../providers'
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +50,42 @@ const styles = StyleSheet.create({
 })
 
 export const Event: React.FC<any> = ({ ...props }) => {
-  const { name, description, date, participants } = props.route.params
+  const { name, description, date, participants, uuid } = props.route.params
+  const { token } = useToken()
+  const client = useClient()
+  const [eventParticipants, setEventParticipants] = useState(participants)
+  const [loading, setLoading] = useState(false)
+  const [connected, setConnected] = useState(false)
+  const [userID, setUserID] = useState<string | null>(null)
+
+  const handleConnect = async () => {
+    setLoading(true)
+    try {
+      const response = await client.interactEvent(uuid, token)
+      setEventParticipants(response.participants)
+      if (!connected) Alert.alert('Success', 'You successfully connected to event')
+      else Alert.alert('Success', 'You successfully disconnected to event')
+    } catch (e) {
+      Alert.alert('Error', 'Something went wrong')
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (!userID) return
+    if (eventParticipants.find((part: any) => userID == part.fullName)) setConnected(true)
+    else setConnected(false)
+  }, [userID, eventParticipants, setConnected])
+
+  useEffect(() => {
+    if (token === '') return
+    client.getProfile(token).then((response) => {
+      setUserID(response.firstName + ' ' + response.lastName)
+    })
+  }, [client, token])
+
+  if (!userID) return null
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.propsView}>
@@ -62,11 +98,15 @@ export const Event: React.FC<any> = ({ ...props }) => {
         </View>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Participants:'}</Text>
-          {participants.map((user: any) => (
-            <Text style={styles.link} key={user.fullName}>
-              {user.fullName}
-            </Text>
-          ))}
+          {eventParticipants
+            .filter((participant: any) => {
+              return !(participant.fullName == userID && !connected)
+            })
+            .map((user: any) => (
+              <Text style={styles.link} key={user.fullName}>
+                {user.fullName}
+              </Text>
+            ))}
         </View>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Date:'}</Text>
@@ -83,7 +123,12 @@ export const Event: React.FC<any> = ({ ...props }) => {
         {/*  <Text style={styles.link}>{generateTagsView(tags, 20)}</Text>*/}
         {/*</View>*/}
         <View style={styles.enterButton}>
-          <Button title="Connect" />
+          <Button
+            onPress={handleConnect}
+            title={!connected ? 'Connect' : 'Disconnect'}
+            buttonStyle={connected && { backgroundColor: 'red' }}
+            loading={loading}
+          />
         </View>
       </ScrollView>
     </View>

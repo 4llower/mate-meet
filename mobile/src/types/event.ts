@@ -1,4 +1,5 @@
 export interface EventProps {
+  uuid: string
   date: string
   name: string
   author: {

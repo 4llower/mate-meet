@@ -5,6 +5,7 @@ import { CreateEvent } from './request'
 export interface Event {
   getAllEvents: (token: string) => Promise<EventProps[]>
   createEvent: (values: CreateEvent, token: string) => void
+  interactEvent: (eventId: string, token: string) => EventProps
 }
 
 export const eventInitializer = (client: AxiosInstance) => {
@@ -30,6 +31,19 @@ export const eventInitializer = (client: AxiosInstance) => {
           Authorization: `Bearer ${token}`,
         },
       })
+    },
+    interactEvent: async (eventId: string, token: string) => {
+      return (
+        await client.post(
+          `/events/${eventId}/participants/`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+      ).data
     },
   }
 }

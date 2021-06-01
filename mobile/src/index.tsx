@@ -11,8 +11,8 @@ import { useFonts } from 'expo-font'
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
-// LogBox.ignoreLogs(['Warning: ...'])
-// LogBox.ignoreAllLogs()
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs()
 
 export const MainScreen = () => {
   return (
