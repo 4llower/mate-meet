@@ -76,8 +76,6 @@ export const EventPreview: React.FC<Props> = ({
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View style={styles.container}>
-        {!photo && <Ionicons name="image" size={90} />}
-        {photo && <Image source={{ uri: config.media + photo }} style={styles.previewImage} />}
         <View style={styles.description}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>

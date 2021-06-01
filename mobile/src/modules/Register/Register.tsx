@@ -166,7 +166,6 @@ export const Register = () => {
         lowerCase: false,
         upperCase: false,
       }
-      console.log(new Array(password.length))
       new Array(password.length).fill(0).forEach((_, index) => {
         const char = password.charAt(index)
         if (char >= '0' && char <= '9') rules.hasSymbolOrDigit = true

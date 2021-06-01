@@ -1,14 +1,13 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, ScrollView } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
-import { generateTagsView } from '../../helpers'
 import moment from 'moment'
-import { config } from '../../config'
+import { parseDescriptionToDescriptionAndGeo } from '../../helpers'
 
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: '#f8f8ff',
   },
   image: {
     height: 250,
@@ -19,6 +18,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 15,
     fontSize: 30,
+    marginBottom: 30,
+    textAlign: 'center',
     fontFamily: 'MontserratBold',
   },
   descriptionView: {
@@ -48,21 +49,16 @@ const styles = StyleSheet.create({
 })
 
 export const Event: React.FC<any> = ({ ...props }) => {
-  const { name, description, photo, date, participants } = props.route.params
-  console.log(participants)
+  const { name, description, date, participants } = props.route.params
   return (
     <View style={styles.container}>
       <ScrollView style={styles.propsView}>
-        {!photo && (
-          <View style={styles.defaultIconView}>
-            <Ionicons name="image" size={200} />
-          </View>
-        )}
-        {photo && <Image source={{ uri: config.media + photo }} style={styles.image} />}
         <Text style={styles.name}>{name}</Text>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Description:'}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.description}>
+            {parseDescriptionToDescriptionAndGeo(description).description}
+          </Text>
         </View>
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Participants:'}</Text>
@@ -75,6 +71,12 @@ export const Event: React.FC<any> = ({ ...props }) => {
         <View style={styles.descriptionView}>
           <Text style={styles.title}>{'Date:'}</Text>
           <Text style={styles.description}>{moment(date).format('MMMM Do YYYY, h:mm a')}</Text>
+        </View>
+        <View style={styles.descriptionView}>
+          <Text style={styles.title}>{'Address:'}</Text>
+          <Text style={styles.description}>
+            {parseDescriptionToDescriptionAndGeo(description).geo}
+          </Text>
         </View>
         {/*<View style={styles.descriptionView}>*/}
         {/*  <Text style={styles.title}>{'Tags:'}</Text>*/}

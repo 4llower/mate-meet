@@ -144,7 +144,10 @@ export const CreateEvent = () => {
     }
     try {
       // if (eventPhoto && eventPhoto.type !== 'cancel') options['eventPhoto'] = eventPhoto.file
-      await client.createEvent({ ...values, address }, token)
+      await client.createEvent(
+        { ...values, description: values.description + '|||' + address },
+        token,
+      )
       Alert.prompt('Event was successfully created!')
       reset({ index: 0, routes: [{ name: APP_NAVIGATION.MAIN_SCREEN }] })
     } catch (e) {
