@@ -30,7 +30,7 @@ export const parseDescriptionToDescriptionAndGeo = (
       description,
     }
 
-  const newDescription = description.slice(0, separatorIndex - 1)
+  const newDescription = description.slice(0, separatorIndex)
   const geo = description.slice(separatorIndex + separator.length)
 
   return {
