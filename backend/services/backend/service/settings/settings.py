@@ -76,7 +76,7 @@ USE_SWAGGER = get_env_variable('USE_SWAGGER')
 ORDER_MINIMUM_PRICE = 100
 
 CELERY_IMPORTS = (
-    'service.apps.events.tasks',
+    'apps.events.tasks',
 )
 
 BROKER_URL = get_env_variable('BROKER_URL')

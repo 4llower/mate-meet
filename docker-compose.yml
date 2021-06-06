@@ -47,7 +47,9 @@ services:
   beat:
     container_name: beat
     entrypoint: [ 'celery' ]
-    command: [ 'beat', '-A', 'service.apps.celery.celery' ]
+    command: [ 'beat', '-A', 'apps.celery.celery' ]
+    env_file:
+      - backend/services/backend/.env
     build:
       context: ./backend/services/backend
     volumes:
@@ -58,7 +60,9 @@ services:
   worker:
     container_name: worker
     entrypoint: ['celery']
-    command: ['worker', '-A', 'service.apps.celery.celery']
+    env_file:
+      - backend/services/backend/.env
+    command: ['worker', '-A', 'apps.celery.celery']
     build:
       context: ./backend/services/backend
     volumes:
