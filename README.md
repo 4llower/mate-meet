@@ -5,6 +5,9 @@
 [ Research & study together ]
 
 The project follows the style described in [pep8](https://www.python.org/dev/peps/pep-0008/)
+
+## Backend
+
 ### [Backend] Preinstall
 ```
 git clone https://github.com/4llower/mate-meet.git
@@ -35,6 +38,9 @@ $ docker-compose run backend python3 manage.py migrate
 ```bash
 $ docker-compose run backend vulture apps
 ```
+
+## Frontend
+*Separated application need to join to folder [./mobile](https://github.com/4llower/mate-meet/tree/master/mobile)*
 
 ### [Frontend] Install dependencies
 ```
