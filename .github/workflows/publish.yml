@@ -1,24 +1,9 @@
 name: Deploy
-
 on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Build and push docker image
-        uses: jerray/publish-docker-action@master
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: 4llower/mate-meet/backend
-          auto_tag: true
-
       - name: Build and Run
         uses: appleboy/ssh-action@master
         with:
@@ -26,8 +11,7 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
-            echo "${{ secrets.ENV }}" > .env
-            docker kill $(docker ps -a)
-            docker rm $(docker ps -a)
-            docker pull docker.pkg.github.com/4llower/mate-meet/backend
-            docker run -d -p 443:9000 --env-file .env docker.pkg.github.com/4llower/mate-meet/backend
+            cd mate-meet
+            docker-compose down
+            git pull
+            docker-compose up --build -d
