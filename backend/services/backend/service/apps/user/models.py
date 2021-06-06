@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from libs.django.models import BaseModel
 from django.contrib.auth.base_user import BaseUserManager
 
+
 class AccountManager(BaseUserManager):
     def create_user(self, login, password=None):
         user = self.model(login=login)
@@ -33,6 +34,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         max_length=64,
         verbose_name=_('Login'),
     )
+    email = models.EmailField()
     is_active = models.BooleanField(
         default=True,
         verbose_name=_('Is active'),
@@ -94,7 +96,6 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = _('User profiles')
         verbose_name = _('User profile')
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

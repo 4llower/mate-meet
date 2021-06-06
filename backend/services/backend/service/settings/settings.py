@@ -45,6 +45,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_DIR)
 
 DEFAULT_FILE_STORAGE = 'apps.files.storages.LocalMediaStorage'
 
+# email service settings
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+EMAIL_DOMEN = 'noreply@matemeet.com'
+EMAIL_DEFAULT = 'i.4llower@gmail.com'
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.environ['MAILGUN_ACCESS_KEY'],
+    "MAILGUN_SENDER_DOMAIN": os.environ['MAILGUN_SERVER_NAME'],  # your Mailgun domain, if needed
+}
+
 TIME_ZONE = 'Europe/Minsk'
 USE_TZ = True
 
@@ -65,6 +75,17 @@ USE_SWAGGER = get_env_variable('USE_SWAGGER')
 
 ORDER_MINIMUM_PRICE = 100
 
+CELERY_IMPORTS = (
+    'service.apps.events.tasks',
+)
+
+BROKER_URL = get_env_variable('BROKER_URL')
+
+CELERY_BROKER_URL = BROKER_URL
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 INSTALLED_APPS = [
     # Django apps

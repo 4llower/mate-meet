@@ -44,7 +44,6 @@ class Event(BaseModel):
     )
     description = models.TextField()
 
-
     class Meta:
         verbose_name_plural = _('Events')
         verbose_name = _('Event')

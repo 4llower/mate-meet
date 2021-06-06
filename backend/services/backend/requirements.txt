@@ -17,6 +17,9 @@ psycopg2-binary==2.8.5
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.6.0
 
+# Asyc
+celery==4.4.2
+
 # Docs
 drf-yasg==1.17.1
 
