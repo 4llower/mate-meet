@@ -12,8 +12,6 @@ services:
       - 5432:5432
     volumes:
       - pg-data-matemeet:/var/lib/postgresql/data
-
-
   backend:
     image: matemeet-backend
     container_name: django-backend
