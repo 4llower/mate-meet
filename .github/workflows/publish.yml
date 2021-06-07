@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and Run
+      - name: Deploy on http://llower.tech
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -16,6 +16,5 @@ jobs:
           script: |
             cd mate-meet
             docker-compose down
-            git pull
+            git pull --force
             docker-compose up --build -d
-
