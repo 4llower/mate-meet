@@ -34,10 +34,6 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         max_length=64,
         verbose_name=_('Login'),
     )
-    email = models.EmailField(
-        blank=True,
-        null=True
-    )
     is_active = models.BooleanField(
         default=True,
         verbose_name=_('Is active'),

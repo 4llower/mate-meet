@@ -19,7 +19,7 @@ class EmailEventManager(PeriodicTask):
             )
         )
         events_creators = [
-            event.author.email for event in events
+            event.author.login for event in events
         ]
         for author in events_creators:
             MailNotificationService.send_default_email(

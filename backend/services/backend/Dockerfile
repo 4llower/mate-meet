@@ -13,9 +13,8 @@ RUN echo $APP_DIR && mkdir ${APP_DIR} && chown ${APP_USER}:${APP_USER} ${APP_DIR
 
 COPY ./requirements.txt ${APP_DIR}
 
-RUN set -ex &&\
-    pip install --upgrade pip && \
-    pip install --no-cache-dir -r ${APP_DIR}requirements.txt
+RUN set -ex && \
+    pip3 install -r ${APP_DIR}requirements.txt
 
 RUN apt-get -q update && \
     apt-get -qy install postgresql-client \
