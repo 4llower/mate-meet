@@ -17,4 +17,4 @@ jobs:
             cd mate-meet
             docker-compose down
             git pull --force
-            docker-compose up --build
+            docker-compose up --build -d
