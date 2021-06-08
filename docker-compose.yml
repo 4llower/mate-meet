@@ -21,7 +21,7 @@ services:
       - backend/services/backend/.env
       - backend/services/postgresql/.env
     ports:
-      - 8000:8000
+      - 80:8000
     volumes:
       - ./backend/services/backend/service/api:/home/appuser/project/api/
       - ./backend/services/backend/service/apps:/home/appuser/project/apps/
