@@ -30,7 +30,6 @@ RUN apt-get -q update && \
 
 COPY --chown=${APP_USER}:${APP_USER} service ${APP_DIR}
 COPY --chown=${APP_USER}:${APP_USER} ./wait-for.sh ${APP_DIR}
-COPY --chown=${APP_USER}:${APP_USER} ./celerybeat.pid ${APP_DIR}
 
 RUN chmod a+x ${APP_DIR}/wait-for.sh
 
