@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import moment from 'moment'
@@ -59,6 +59,10 @@ export const Event: React.FC<any> = ({ ...props }) => {
   const [userID, setUserID] = useState<string | null>(null)
 
   const handleConnect = async () => {
+    if (!userID || userID.trim().length === 0) {
+      Alert.alert('Fail', "You can't connect to event without profile details:(")
+      return
+    }
     setLoading(true)
     try {
       const response = await client.interactEvent(uuid, token)

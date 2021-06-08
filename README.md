@@ -30,7 +30,6 @@ Documentations available on [http://0.0.0.0:8000/api/docs/](http://0.0.0.0:8000/
 ### [Backend] Migrations
 
 ```bash
-$ docker-compose run backend python3 manage.py makemigrations
 $ docker-compose run backend python3 manage.py migrate
 ```
 

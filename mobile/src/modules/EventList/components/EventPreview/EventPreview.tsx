@@ -1,12 +1,13 @@
 import React from 'react'
 import { EventProps } from '../../../../types'
-import { View, Image, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
 import { cutIfMaximumLengthExceeded } from './helpers'
 import moment from 'moment'
 import { Participants } from './components'
-import { generateTagsView } from '../../../../helpers'
-import { config } from '../../../../config'
+import { parseDescriptionToDescriptionAndGeo } from '../../../../helpers'
+// import { generateTagsView } from '../../../../helpers'
+// import { config } from '../../../../config'
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +69,6 @@ interface Props extends EventProps {
 export const EventPreview: React.FC<Props> = ({
   name,
   description,
-  photo,
   date,
   participants,
   onPress,
@@ -78,7 +78,11 @@ export const EventPreview: React.FC<Props> = ({
       <View style={styles.container}>
         <View style={styles.description}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.field}>{cutIfMaximumLengthExceeded(description)}</Text>
+          <Text style={styles.field}>
+            {cutIfMaximumLengthExceeded(
+              parseDescriptionToDescriptionAndGeo(description).description,
+            )}
+          </Text>
           {/*<Text style={styles.link}>{generateTagsView(tags)}</Text>*/}
         </View>
         <Text style={styles.date}>{moment(date).format('MMM Do, h:mm a')}</Text>
