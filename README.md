@@ -43,6 +43,8 @@ $ docker-compose run backend vulture apps
 
 ### Android .apk build [here](https://drive.google.com/drive/folders/1M-xjeSdwyMq68MiQPgETLYt2Gk48KOmA?usp=sharing)
 
+<img src="docs/build-details.png">
+
 *Separated application need to join to folder [./mobile](https://github.com/4llower/mate-meet/tree/master/mobile)*
 
 ### [Frontend] Install dependencies
