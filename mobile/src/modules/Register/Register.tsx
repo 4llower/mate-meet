@@ -91,15 +91,13 @@ const styles = StyleSheet.create({
 
 const initialValues = {
   login: '',
-  email: '',
   description: '',
   password: '',
 }
 
 const validationSchema = object().shape({
-  login: string().required(),
+  login: string().email().required(),
   password: string().required(),
-  email: string().email(),
   description: string(),
 })
 
@@ -186,16 +184,10 @@ export const Register = () => {
           <View style={styles.loginFormView}>
             <Text style={styles.logoText}>Register</Text>
             <TextInput
-              placeholder="Username*"
+              placeholder="Email*"
               placeholderTextColor="#c4c3cb"
               style={styles.loginFormTextInput}
               {...field('login')}
-            />
-            <TextInput
-              placeholder="Email*"
-              {...field('email')}
-              placeholderTextColor="#c4c3cb"
-              style={styles.loginFormTextInput}
             />
             <TextInput
               placeholder="Description"
